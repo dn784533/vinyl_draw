@@ -254,6 +254,11 @@ namespace VinylDraw
                 helpForm.Show();
             }
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
     public class SpeedRPM
     {

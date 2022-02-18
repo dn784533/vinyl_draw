@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		License.txt = License.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Vinyl Draw", "Vinyl Draw\Vinyl Draw.vdproj", "{5EF5A08B-018A-402E-BFEE-A9F6E1438D70}"
