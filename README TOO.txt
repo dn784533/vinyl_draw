@@ -6,7 +6,7 @@ This program is provided free and as-is, with no warranty of any kind! No respon
 Sub-directories in this package:
 ================================
 Vinyl Draw - contains the Windows installer (run setup.exe) for the end-user application.
-BMPtoWAV - contains the Visual Studio solution and all source files.
+BMPtoWAV - contains the C# source files, except the top-level solution file (VinylDraw.sln) which is in the same directory as this document.
 Extras - see next para.
 
 Files in 'Extras' directory:
