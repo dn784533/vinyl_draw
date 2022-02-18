@@ -1,0 +1,10 @@
+C:\Users\user\source\repos\Vinyl Draw\BMPtoWAV\bin\Release\BMPtoWAV.exe.config
+C:\Users\user\source\repos\Vinyl Draw\BMPtoWAV\bin\Release\BMPtoWAV.exe
+C:\Users\user\source\repos\Vinyl Draw\BMPtoWAV\bin\Release\BMPtoWAV.pdb
+C:\Users\user\source\repos\Vinyl Draw\BMPtoWAV\obj\Release\VinylDraw.Form1.resources
+C:\Users\user\source\repos\Vinyl Draw\BMPtoWAV\obj\Release\VinylDraw.Help.resources
+C:\Users\user\source\repos\Vinyl Draw\BMPtoWAV\obj\Release\BMPtoWAV.Properties.Resources.resources
+C:\Users\user\source\repos\Vinyl Draw\BMPtoWAV\obj\Release\VinylDraw.csproj.GenerateResource.cache
+C:\Users\user\source\repos\Vinyl Draw\BMPtoWAV\obj\Release\VinylDraw.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\Vinyl Draw\BMPtoWAV\obj\Release\BMPtoWAV.exe
+C:\Users\user\source\repos\Vinyl Draw\BMPtoWAV\obj\Release\BMPtoWAV.pdb

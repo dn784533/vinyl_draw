@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VinylDraw", "BMPtoWAV\VinylDraw.csproj", "{03071CA1-5633-4539-8C29-87847D8693FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0FE40A82-98DC-4B77-98BF-1C1C40A5749B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		License.txt = License.txt
+	EndProjectSection
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Vinyl Draw", "Vinyl Draw\Vinyl Draw.vdproj", "{5EF5A08B-018A-402E-BFEE-A9F6E1438D70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03071CA1-5633-4539-8C29-87847D8693FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03071CA1-5633-4539-8C29-87847D8693FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03071CA1-5633-4539-8C29-87847D8693FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03071CA1-5633-4539-8C29-87847D8693FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EF5A08B-018A-402E-BFEE-A9F6E1438D70}.Debug|Any CPU.ActiveCfg = Debug
+		{5EF5A08B-018A-402E-BFEE-A9F6E1438D70}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F7DA117-4916-4BCE-94C3-42B3974564A3}
+	EndGlobalSection
+EndGlobal
