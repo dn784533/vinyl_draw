@@ -168,7 +168,7 @@ namespace VinylDraw
                     try
                     {
                         BMPColourTable = new List<bmpRGBData>();
-                        fs.Position = 0x36; // Set position to start of colour table
+                        fs.Position = 0x0E + BMPHdr.DibHeaderLength; // Set position to start of colour table
                         for (int i = 0; i < BMPHdr.ColoursInPalette; i++)
                         {
                             bytesRead = fs.Read(data, 0, 4);
@@ -216,21 +216,27 @@ namespace VinylDraw
 								BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
 								break;
 							case 1:
-								bytesRead = fs.Read(data, 0, 1);
-								// Iterate through each of the 8 bits, starting with the MSB
-								for (byte msk = 128; msk > 0; msk >>= 1)
-								{
-									// If the bit is set, use colour 1
-									if ((data[0] & msk) > 0) colour = BMPColourTable[1];
-									// If the bit is clear, use colour 0
-									else colour = BMPColourTable[0];
-									BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
-								}
+								bytesRead = fs.Read(data, 0, 4);
+                                // Iterate through each of the four bytes read
+                                for (int offset = 0; offset <= 3; offset++)
+                                {
+                                    // Iterate through each of the 8 bits, starting with the MSB
+                                    for (byte msk = 128; msk > 0; msk >>= 1)
+                                    {
+                                        if (iCol > BMPHdr.WidthPx - 1)
+                                            continue;
+                                        // If the bit is set, use colour 1
+                                        if ((data[offset] & msk) > 0) colour = BMPColourTable[1];
+                                        // If the bit is clear, use colour 0
+                                        else colour = BMPColourTable[0];
+                                        BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
+                                    }
+                                }
 								break;
                             default:
                                 throw new Exception("Bits per BMP pixel must be 1, 4, 8, 16 or 24");
 						}
-					}
+                    }
 				}
 				fs.Close();
 			}
