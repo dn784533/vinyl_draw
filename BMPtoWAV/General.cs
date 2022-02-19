@@ -240,6 +240,7 @@ namespace VinylDraw
 
 	public class WAVAdmin
     {
+        public int amplSign;
 		public double dsOuterRadiusCm;
 		public double dsInnerRadiusCm;
 		public double dsLPcm;
@@ -287,6 +288,7 @@ namespace VinylDraw
 			int idR, int idG, int idB
 			)
         {
+            amplSign = -1;
 			dsOuterRadiusCm = idsOuterRadiusCm;
 			dsInnerRadiusCm = idsInnerRadiusCm;
 			dsLPcm = idsLPcm;
@@ -397,7 +399,6 @@ namespace VinylDraw
         /// <param name="iData"></param>
 		public void CreateTone(bmpRGBData iData)
         {
-            int amplSign = -1;
             int flip;
 			// Iterate through values for three colours
 			for (int iColour=0;iColour<3;iColour++)
