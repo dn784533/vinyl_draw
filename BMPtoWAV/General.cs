@@ -150,7 +150,9 @@ namespace VinylDraw
 			byte[] data = new byte[0x36];
 			int bytesRead = 0;
 			BMPHdr = new bmpHeader();
-			using (FileStream fs = new FileStream(iFileName, FileMode.Open))
+            bmpRGBData colour;
+
+            using (FileStream fs = new FileStream(iFileName, FileMode.Open))
             {
 				// Read the first 0x36 bytes and populate the BMP header struct
 				bytesRead = fs.Read(data, 0, 0x36);
@@ -203,17 +205,31 @@ namespace VinylDraw
 								BMPImageData[iRow, iCol++] = new bmpRGBData((byte)((data[1] & 0x7C) >> 2), (byte)(((data[1] & 0x03) << 3) & (data[0] >> 5)), (byte)(data[0] & 0x1F));
 								break;
 							case 8:
-								bytesRead = fs.Read(data, 0, 1);
-								// Use colour table to retrieve the RGB values
-								bmpRGBData colour = BMPColourTable[data[0]];
-								BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
+								bytesRead = fs.Read(data, 0, 4);
+                                // Iterate through each of the four bytes read
+                                for (int offset = 0; offset <= 3; offset++)
+                                {
+                                    // Use colour table to retrieve the RGB values
+                                    colour = BMPColourTable[data[offset]];
+                                    BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
+                                }
 								break;
 							case 4:
-								bytesRead = fs.Read(data, 0, 1);
-								colour = BMPColourTable[(byte)(data[0] >> 4)];
-								BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
-								colour = BMPColourTable[(byte)(data[0] & 0x0F)];
-								BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
+                                bytesRead = fs.Read(data, 0, 4);
+                                // Iterate through each of the four bytes read
+                                for (int offset = 0; offset <= 3; offset++)
+                                {
+                                    // If we're at the RHS of the image, jump out
+                                    if (iCol > BMPHdr.WidthPx - 1)
+                                        break;
+                                    colour = BMPColourTable[(byte)(data[offset] >> 4)];
+                                    BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
+                                    // If we're at the RHS of the image, jump out
+                                    if (iCol > BMPHdr.WidthPx - 1)
+                                        break;
+                                    colour = BMPColourTable[(byte)(data[offset] & 0x0F)];
+                                    BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
+                                }
 								break;
 							case 1:
 								bytesRead = fs.Read(data, 0, 4);
@@ -223,8 +239,9 @@ namespace VinylDraw
                                     // Iterate through each of the 8 bits, starting with the MSB
                                     for (byte msk = 128; msk > 0; msk >>= 1)
                                     {
+                                        // If we're at the RHS of the image, jump out
                                         if (iCol > BMPHdr.WidthPx - 1)
-                                            continue;
+                                            break;
                                         // If the bit is set, use colour 1
                                         if ((data[offset] & msk) > 0) colour = BMPColourTable[1];
                                         // If the bit is clear, use colour 0
