@@ -27,14 +27,16 @@ namespace VinylDraw
             "at which the inscription will start.\r\n\r\nEnd Radius - on the blank disc, the radius at which the inscription will end. This should be the end of " +
             "the recorded programme material, not the locked groove.\r\n\r\nLines / cm - the number of windings of the groove that will occupy each " +
             "linear centimetre of radius.\r\n\r\nTurntable RPM - the speed of the recording lathe platter.";
-        public const string help3 = "Resolution and Colours\r\n\r\n" +
-            "Angle / step - the annular part of the image that will be inscribed is processed in a spiral, starting at the edge and moving gradually inward, the "+
+        public const string help3 = "BMP File Details\r\n\r\n" +
+            "The details on this panel are filled in when the selected BMP file has successfully loaded.";
+        public const string help4 = "Resolution and Colours\r\n\r\n" +
+            "Steps / rev - the annular part of the image that will be inscribed is processed in a spiral, starting at the edge and moving gradually inward, the "+
             "tightness of the spiral being determined by the 'Lines / cm' setting above. Within each winding of the spiral, the image will be sampled at data points " +
-            "separated by the angle, in degrees, specified here. Allowed values are 1 to 6.\r\n\r\nFor full-colour " +
+            "at the rate specified here. Allowed values are 180, 360, 540 and 720.\r\n\r\nFor full-colour " +
             "images, an attempt is made to represent the RGB values using short sections of waveform for each, at frequencies that may be set by the " +
             "user here. The proportions of the RGB values can also be set. Bear in mind that although this allows (in theory) images of 16.7 million colours to " +
             "be used as input material, such images may not translate well when reduced to just one colour (i.e. black)!";
-        public string help4 = "Version " + Assembly.GetEntryAssembly().GetName().Version + "\r\nCopyright © David Nelson, 2022.";
+        public string help5 = "This version built " + BMPtoWAV.Properties.Resources.BuildDate + "Copyright © David Nelson, 2022.";
 
         public Help()
         {
@@ -43,6 +45,7 @@ namespace VinylDraw
             txtHelp2.Text = help2;
             txtHelp3.Text = help3;
             txtHelp4.Text = help4;
+            txtHelp5.Text = help5;
          }
 
 

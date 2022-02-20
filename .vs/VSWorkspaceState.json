@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\BMPtoWAV"
   ],
-  "SelectedNode": "\\VinylDraw.sln",
+  "SelectedNode": "\\BMPtoWAV\\General.cs",
   "PreviewInSolutionExplorer": false
 }

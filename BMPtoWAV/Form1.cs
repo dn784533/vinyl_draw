@@ -30,7 +30,7 @@ namespace VinylDraw
         public int Gpcent;
         public int Bpcent;
         public int LPcm;
-        public int AnglePStep;
+        public int StepsPerRev;
         public double TTSpeedRPM;
         public List<SpeedRPM> Speeds;
 
@@ -62,7 +62,7 @@ namespace VinylDraw
             trkGpcent.Value = Constants.dfltGpcent;
             trkBpcent.Value = Constants.dfltBpcent;
             trkLPcm.Value = Constants.dfltLPcm;
-            trkAnglePStep.Value = Constants.dfltAnglePStep;
+            trkStepsPerRev.Value = Constants.dfltStepsPerRev;
             trkStartRadiusCm.Value = Constants.dfltStartRadiusCm;
             trkEndRadiusCm.Value = Constants.dfltEndRadiusCm;
             CollectValues();
@@ -73,16 +73,16 @@ namespace VinylDraw
         /// </summary>
         private void CollectValues()
         {
-            Rfreq = trkRfreq.Value;
-            Gfreq = trkGfreq.Value;
-            Bfreq = trkBfreq.Value;
+            Rfreq = trkRfreq.Value * 250;
+            Gfreq = trkGfreq.Value * 250;
+            Bfreq = trkBfreq.Value * 250;
             Rpcent = trkRpcent.Value;
             Gpcent = trkGpcent.Value;
             Bpcent = trkBpcent.Value;
             StartRadiusCm = 6.25d + trkStartRadiusCm.Value / 4.0d;
             EndRadiusCm = 3.0d + trkEndRadiusCm.Value / 10.0d;
             LPcm = trkLPcm.Value;
-            AnglePStep = trkAnglePStep.Value;
+            StepsPerRev = 180 * trkStepsPerRev.Value;
             lblRfreq.Text = Rfreq.ToString() + " Hz";
             lblGfreq.Text = Gfreq.ToString() + " Hz";
             lblBfreq.Text = Bfreq.ToString() + " Hz";
@@ -92,7 +92,7 @@ namespace VinylDraw
             lblStartRadiusCm.Text = StartRadiusCm.ToString() + " cm";
             lblEndRadiusCm.Text = EndRadiusCm.ToString() + " cm";
             lblLPcm.Text = LPcm.ToString();
-            lblAnglePStep.Text = AnglePStep.ToString() + "°";
+            lblStepsPerRev.Text = StepsPerRev.ToString();
         }
 
         /// <summary>
@@ -118,6 +118,22 @@ namespace VinylDraw
                     BMPAdmin.OpenBMPFile(ofd.FileName);
                     cmdCreateWAVData.Enabled = true;
                     lblProcessingEnded.Visible = false;
+                    // Show all the details of the BMP file.
+                    lblFileName.Text = ofd.FileName;
+                    lblFileLength.Text = BMPAdmin.BMPHdr.FileLength.ToString();
+                    lblBmpOffset.Text = BMPAdmin.BMPHdr.BmpOffset.ToString();
+                    lblDibHeaderLength.Text = BMPAdmin.BMPHdr.DibHeaderLength.ToString();
+                    lblWidthPx.Text = BMPAdmin.BMPHdr.WidthPx.ToString();
+                    lblHeightPx.Text = BMPAdmin.BMPHdr.HeightPx.ToString();
+                    lblColourPlanes.Text = BMPAdmin.BMPHdr.ColourPlanes.ToString();
+                    lblRowsReversed.Text = (BMPAdmin.BMPHdr.RowsReversed) ? "Yes" : "No";
+                    lblBitsPerPx.Text = BMPAdmin.BMPHdr.BitsPerPx.ToString();
+                    lblCompression.Text = BMPAdmin.BMPHdr.Compression.ToString();
+                    lblImageSize.Text = BMPAdmin.BMPHdr.ImageSize.ToString();
+                    lblHorizRes.Text = BMPAdmin.BMPHdr.HorizRes.ToString();
+                    lblVertRes.Text = BMPAdmin.BMPHdr.VertRes.ToString();
+                    lblColoursInPalette.Text = BMPAdmin.BMPHdr.ColoursInPalette.ToString();
+                    lblBytesPerRow.Text = BMPAdmin.BMPHdr.BytesPerRow.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -140,7 +156,7 @@ namespace VinylDraw
             prgCreate.Visible = true;
             CollectValues();
             wav = new WAVAdmin(StartRadiusCm, EndRadiusCm, LPcm,
-                TTSpeedRPM, AnglePStep, Rfreq, Gfreq, Bfreq, Rpcent, Gpcent, Bpcent);
+                TTSpeedRPM, StepsPerRev, Rfreq, Gfreq, Bfreq, Rpcent, Gpcent, Bpcent);
             wav.ProgressChanged += (o, ex) =>
             {
                 prgCreate.Value = ex.Progress;
@@ -258,6 +274,11 @@ namespace VinylDraw
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
     public class SpeedRPM

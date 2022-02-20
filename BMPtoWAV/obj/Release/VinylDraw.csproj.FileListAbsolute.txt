@@ -18,3 +18,5 @@ C:\Users\user\Source\Repos\vinyl_draw\BMPtoWAV\obj\Release\VinylDraw.csproj.Gene
 C:\Users\user\Source\Repos\vinyl_draw\BMPtoWAV\obj\Release\VinylDraw.csproj.CoreCompileInputs.cache
 C:\Users\user\Source\Repos\vinyl_draw\BMPtoWAV\obj\Release\BMPtoWAV.exe
 C:\Users\user\Source\Repos\vinyl_draw\BMPtoWAV\obj\Release\BMPtoWAV.pdb
+C:\Users\user\Source\Repos\vinyl_draw\BMPtoWAV\obj\Release\VinylDraw.csproj.AssemblyReference.cache
+C:\Users\user\Source\Repos\vinyl_draw\BMPtoWAV\obj\Release\BMPtoWAV.g.resources

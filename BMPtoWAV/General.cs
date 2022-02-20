@@ -20,14 +20,15 @@ namespace VinylDraw
     public static class Constants
     {
 		public const int SampleRate = 44100;
-		public const int dfltRfreq = 500;
-		public const int dfltGfreq = 1000;
-		public const int dfltBfreq = 2000;
+		public const int dfltRfreq = 2;
+		public const int dfltGfreq = 4;
+		public const int dfltBfreq = 8;
 		public const int dfltRpcent = 33;
 		public const int dfltGpcent = 33;
 		public const int dfltBpcent = 34;
 		public const int dfltLPcm = 80;
-		public const int dfltAnglePStep = 1;
+        public const int dfltSelectedIndex = 5; // 45 rpm
+        public const int dfltStepsPerRev = 2;
 		public const int dfltStartRadiusCm = 10; // NB - refers to TrackBar control. Value is 10 'notches' of 0.25 up from a base of 6.25 - so 8.75
 		public const int dfltEndRadiusCm = 23; // As above. Value is 18 notches of 0.1 up from a base of 3 - so 5.3
 	}
@@ -45,10 +46,11 @@ namespace VinylDraw
 		public int Unused;
 		public int BmpOffset;
 		public int DibHeaderLength;
-		public int WidthPx;
+		public int WidthPx; 
 		public int HeightPx;
 		public short ColourPlanes;
 		public short BitsPerPx;
+        public int BytesPerRow;
 		public int Compression;
 		public int ImageSize;
 		public int HorizRes;
@@ -68,17 +70,15 @@ namespace VinylDraw
         {
 			var br = new BinaryReader(new MemoryStream(data));
 			var bh = default(bmpHeader);
-			int height, width, wMod;
+            int height;
 			bh.Id = br.ReadInt16();
 			bh.FileLength = br.ReadInt32();
 			bh.Unused = br.ReadInt32();
 			bh.BmpOffset = br.ReadInt32();
 			bh.DibHeaderLength = br.ReadInt32();
-			width = br.ReadInt32();
-			wMod = 4 - (width % 4);
-			if (wMod < 4) width += wMod;
-			bh.WidthPx = width;
-			height = br.ReadInt32();
+            bh.WidthPx = br.ReadInt32();
+        
+            height = br.ReadInt32();
 			if (height < 0)
             {
 				bh.HeightPx = -height;
@@ -91,6 +91,7 @@ namespace VinylDraw
             }
 			bh.ColourPlanes = br.ReadInt16();
 			bh.BitsPerPx = br.ReadInt16();
+            bh.BytesPerRow = (bh.BitsPerPx * bh.WidthPx + 31) / 32 * 4;
 			bh.Compression = br.ReadInt32();
 			bh.ImageSize = br.ReadInt32();
 			bh.HorizRes = br.ReadInt32();
@@ -189,33 +190,50 @@ namespace VinylDraw
 				// each pixel as a bmpRGBData struct
 				for (int iRow = 0;iRow < BMPHdr.HeightPx;iRow++)
                 {
-					for (int iCol = 0; iCol < BMPHdr.WidthPx;)
+                    bytesRead = 0;
+                    int iCol = 0;
+                    while (bytesRead < BMPHdr.BytesPerRow)
+					//for (int iCol = 0; iCol < BMPHdr.WidthPx;)
 					{
-						switch (BMPHdr.BitsPerPx)
-						{
-							case 24:
-								bytesRead = fs.Read(data, 0, 3);
+                        switch (BMPHdr.BitsPerPx)
+                        {
+                            case 24:
+                                // If we're at the RHS of the image, read any padding bytes
+                                if (iCol > BMPHdr.WidthPx - 1)
+                                { 
+                                    bytesRead += fs.Read(data, 0, BMPHdr.BytesPerRow - bytesRead);
+                                    break;
+                                }
+								bytesRead += fs.Read(data, 0, 3);
 								// Add the three byte values to the image data, reversing the order for B, G, R
 								BMPImageData[iRow, iCol++] = new bmpRGBData(data, true);
 								break;
 							case 16:
-								bytesRead = fs.Read(data, 0, 2);
+                                // If we're at the RHS of the image, read any padding bytes
+                                if (iCol > BMPHdr.WidthPx - 1)
+                                {
+                                    bytesRead += fs.Read(data, 0, BMPHdr.BytesPerRow - bytesRead);
+                                    break;
+                                }
+                                bytesRead += fs.Read(data, 0, 2);
 								// Chop up the 2 bytes read into three sets of 5-bit values. Need explicit casts back to byte because bitwise operators
 								// return int types. The two bytes contain data thus: GGGBBBBB, xRRRRRGG.
 								BMPImageData[iRow, iCol++] = new bmpRGBData((byte)((data[1] & 0x7C) >> 2), (byte)(((data[1] & 0x03) << 3) & (data[0] >> 5)), (byte)(data[0] & 0x1F));
 								break;
 							case 8:
-								bytesRead = fs.Read(data, 0, 4);
+								bytesRead += fs.Read(data, 0, 4);
                                 // Iterate through each of the four bytes read
                                 for (int offset = 0; offset <= 3; offset++)
                                 {
-                                    // Use colour table to retrieve the RGB values
+                                    // If we're at the RHS of the image, jump out
+                                    if (iCol > BMPHdr.WidthPx - 1)
+                                        break;                                    // Use colour table to retrieve the RGB values
                                     colour = BMPColourTable[data[offset]];
                                     BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
                                 }
 								break;
 							case 4:
-                                bytesRead = fs.Read(data, 0, 4);
+                                bytesRead += fs.Read(data, 0, 4);
                                 // Iterate through each of the four bytes read
                                 for (int offset = 0; offset <= 3; offset++)
                                 {
@@ -232,7 +250,7 @@ namespace VinylDraw
                                 }
 								break;
 							case 1:
-								bytesRead = fs.Read(data, 0, 4);
+								bytesRead += fs.Read(data, 0, 4);
                                 // Iterate through each of the four bytes read
                                 for (int offset = 0; offset <= 3; offset++)
                                 {
@@ -298,7 +316,7 @@ namespace VinylDraw
         /// <param name="idsInnerRadiusCm"></param>
         /// <param name="idsLPcm"></param>
         /// <param name="iTTrpm"></param>
-        /// <param name="iangStepDeg"></param>
+        /// <param name="iStepsPerRev"></param>
         /// <param name="ifR"></param>
         /// <param name="ifG"></param>
         /// <param name="ifB"></param>
@@ -306,7 +324,7 @@ namespace VinylDraw
         /// <param name="idG"></param>
         /// <param name="idB"></param>
 		public WAVAdmin(double idsOuterRadiusCm, double idsInnerRadiusCm,
-			double idsLPcm, double iTTrpm, int iangStepDeg, 
+			double idsLPcm, double iTTrpm, int iStepsPerRev, 
 			int ifR, int ifG, int ifB,
 			int idR, int idG, int idB
 			)
@@ -318,9 +336,9 @@ namespace VinylDraw
 			TTrpm = iTTrpm;
 			numLines = (dsOuterRadiusCm - dsInnerRadiusCm) * dsLPcm;
 			stepDuration = (angStep * 30) / (Math.PI * TTrpm);
-			stepsPerRev = 360 / iangStepDeg; //iangStepDeg must divide exactly into 360 - this allows 1 to 6 as angular steps, but not 7
-			angStep = iangStepDeg * Math.PI / 180.0d;
-			samplesPerRev = (int)(Constants.SampleRate * 60 / TTrpm);
+            stepsPerRev = iStepsPerRev; 
+            angStep = (360.0d / stepsPerRev) * Math.PI / 180.0d;
+            samplesPerRev = (int)(Constants.SampleRate * 60 / TTrpm);
 			// The 'real' number of samples required for an angular step - may not be an integer
 			realSamplesPerStep = angStep * samplesPerRev / (2.0d * Math.PI);
 			// Rounded down to nearest integer
