@@ -21,18 +21,16 @@ namespace VinylDraw
     public partial class Form1 : Form
     {
         public WAVAdmin wav;
-        public int Rfreq;
-        public int Gfreq;
-        public int Bfreq;
+        public int H0;
+        public int H360;
+        public bool LumForAmpl;
         public double StartRadiusCm;
         public double EndRadiusCm;
-        public int Rpcent;
-        public int Gpcent;
-        public int Bpcent;
         public int LPcm;
         public int StepsPerRev;
         public double TTSpeedRPM;
         public List<SpeedRPM> Speeds;
+
 
         /// <summary>
         /// Draw form and controls.
@@ -44,7 +42,7 @@ namespace VinylDraw
             saveToolStripMenuItem.Enabled = false;
             lblProcessingEnded.Visible = false;
             prgCreate.Visible = false;
-            Speeds = new List<SpeedRPM> { 
+            Speeds = new List<SpeedRPM> {
                 new SpeedRPM("8⅓", 50.0d / 6),
                 new SpeedRPM("16⅔", 100.0d/6),
                 new SpeedRPM("22½", 22.5),
@@ -55,12 +53,9 @@ namespace VinylDraw
             lbxSpeedRPM.DisplayMember = "Text";
             lbxSpeedRPM.DataSource = Speeds;
             lbxSpeedRPM.SelectedIndex = 5;
-            trkRfreq.Value = Constants.dfltRfreq;
-            trkGfreq.Value = Constants.dfltGfreq;
-            trkBfreq.Value = Constants.dfltBfreq;
-            trkRpcent.Value = Constants.dfltRpcent;
-            trkGpcent.Value = Constants.dfltGpcent;
-            trkBpcent.Value = Constants.dfltBpcent;
+            trkHue0.Value = Constants.dfltH0;
+            trkHue360.Value = Constants.dfltH360;
+            rdoLuminosity.Checked = Constants.dfltLumForAmpl;
             trkLPcm.Value = Constants.dfltLPcm;
             trkStepsPerRev.Value = Constants.dfltStepsPerRev;
             trkStartRadiusCm.Value = Constants.dfltStartRadiusCm;
@@ -73,22 +68,15 @@ namespace VinylDraw
         /// </summary>
         private void CollectValues()
         {
-            Rfreq = trkRfreq.Value * 250;
-            Gfreq = trkGfreq.Value * 250;
-            Bfreq = trkBfreq.Value * 250;
-            Rpcent = trkRpcent.Value;
-            Gpcent = trkGpcent.Value;
-            Bpcent = trkBpcent.Value;
+            H0 = trkHue0.Value * 250;
+            H360 = trkHue360.Value * 250;
+            LumForAmpl = (rdoLuminosity.Checked) ? true : false;
             StartRadiusCm = 6.25d + trkStartRadiusCm.Value / 4.0d;
             EndRadiusCm = 3.0d + trkEndRadiusCm.Value / 10.0d;
             LPcm = trkLPcm.Value;
             StepsPerRev = 180 * trkStepsPerRev.Value;
-            lblRfreq.Text = Rfreq.ToString() + " Hz";
-            lblGfreq.Text = Gfreq.ToString() + " Hz";
-            lblBfreq.Text = Bfreq.ToString() + " Hz";
-            lblRpcent.Text = Rpcent.ToString() + " %";
-            lblGpcent.Text = Gpcent.ToString() + " %";
-            lblBpcent.Text = Bpcent.ToString() + " %";
+            lblH0.Text = H0.ToString() + " Hz";
+            lblH360.Text = H360.ToString() + " Hz";
             lblStartRadiusCm.Text = StartRadiusCm.ToString() + " cm";
             lblEndRadiusCm.Text = EndRadiusCm.ToString() + " cm";
             lblLPcm.Text = LPcm.ToString();
@@ -156,7 +144,7 @@ namespace VinylDraw
             prgCreate.Visible = true;
             CollectValues();
             wav = new WAVAdmin(StartRadiusCm, EndRadiusCm, LPcm,
-                TTSpeedRPM, StepsPerRev, Rfreq, Gfreq, Bfreq, Rpcent, Gpcent, Bpcent);
+               TTSpeedRPM, StepsPerRev, H0, H360, LumForAmpl);
             wav.ProgressChanged += (o, ex) =>
             {
                 prgCreate.Value = ex.Progress;
@@ -206,49 +194,7 @@ namespace VinylDraw
             CollectValues();
         }
 
-        private int PCTotal()
-        {
-            return trkRpcent.Value + trkGpcent.Value + trkBpcent.Value;
-        }
-
-        private void Ensure100PC(TrackBar other1, TrackBar other2)
-        {
-            while (PCTotal() > 100)
-            {
-                if (other1.Value > 0) other1.Value--;
-                if (PCTotal() > 100 && other2.Value > 0) other2.Value--;
-            }
-            while (PCTotal() < 100)
-            {
-                if (other1.Value < 100) other1.Value++;
-                if (PCTotal() < 100 && other2.Value < 100) other2.Value++;
-            }
-        }
-
-        /// <summary>
-        /// When one slider is moved, adjust other two sliders
-        /// so that the total percentage is always 100.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void trkRpcent_Scroll(object sender, EventArgs e)
-        {
-            Ensure100PC(trkGpcent, trkBpcent);
-            CollectValues();
-        }
-
-        private void trkBpcent_Scroll(object sender, EventArgs e)
-        {
-            Ensure100PC(trkRpcent, trkGpcent);
-            CollectValues();
-        }
-
-        private void trkGpcent_Scroll(object sender, EventArgs e)
-        {
-            Ensure100PC(trkBpcent, trkRpcent);
-            CollectValues();
-        }
-
+ 
         private void lbxSpeedRPM_SelectedIndexChanged(object sender, EventArgs e)
         {
             TTSpeedRPM = (lbxSpeedRPM.SelectedItem as SpeedRPM).Value;
@@ -279,6 +225,24 @@ namespace VinylDraw
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void trkHue0_Scroll(object sender, EventArgs e)
+        {
+            if (trkHue0.Value > trkHue360.Value)
+            {
+                trkHue0.Value = trkHue360.Value;
+            }
+            CollectValues();
+        }
+
+        private void trkHue360_Scroll(object sender, EventArgs e)
+        {
+            if (trkHue360.Value < trkHue0.Value)
+            {
+                trkHue360.Value = trkHue0.Value;
+            }
+            CollectValues();
         }
     }
     public class SpeedRPM

@@ -32,9 +32,11 @@ namespace VinylDraw
         public const string help4 = "Resolution and Colours\r\n\r\n" +
             "Steps / rev - the annular part of the image that will be inscribed is processed in a spiral, starting at the edge and moving gradually inward, the "+
             "tightness of the spiral being determined by the 'Lines / cm' setting above. Within each winding of the spiral, the image will be sampled at data points " +
-            "at the rate specified here. Allowed values are 180, 360, 540 and 720.\r\n\r\nFor full-colour " +
-            "images, an attempt is made to represent the RGB values using short sections of waveform for each, at frequencies that may be set by the " +
-            "user here. The proportions of the RGB values can also be set. Bear in mind that although this allows (in theory) images of 16.7 million colours to " +
+            "at the rate specified here. Allowed values are 180, 360, 540 and 720.\r\n\r\n" +
+            "An attempt is made to represent colour by calculating hue, saturation and luminosity for each point. The hue value - a circular scale running from 0 to 360 - " +
+            "is used to determine the frequency of the waveform that will be created for that point. The frequencies for 0 and 360 can be set on this panel, and the intermediate " +
+            "frequency values are interpolated logarithmically. The amplitude of the recorded wave can be set to depend on luminosity (recommended) or saturation. " +
+            "Bear in mind that although this allows (in theory) images of 16.7 million colours to " +
             "be used as input material, such images may not translate well when reduced to just one colour (i.e. black)!";
         public string help5 = "This version built " + BMPtoWAV.Properties.Resources.BuildDate + "Copyright © David Nelson, 2022.";
 

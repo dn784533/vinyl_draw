@@ -20,3 +20,14 @@ C:\Users\user\Source\Repos\vinyl_draw\BMPtoWAV\obj\Release\BMPtoWAV.exe
 C:\Users\user\Source\Repos\vinyl_draw\BMPtoWAV\obj\Release\BMPtoWAV.pdb
 C:\Users\user\Source\Repos\vinyl_draw\BMPtoWAV\obj\Release\VinylDraw.csproj.AssemblyReference.cache
 C:\Users\user\Source\Repos\vinyl_draw\BMPtoWAV\obj\Release\BMPtoWAV.g.resources
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\bin\Release\BMPtoWAV.exe.config
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\bin\Release\BMPtoWAV.exe
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\bin\Release\BMPtoWAV.pdb
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\obj\Release\BMPtoWAV.g.resources
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\obj\Release\VinylDraw.Form1.resources
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\obj\Release\VinylDraw.Help.resources
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\obj\Release\BMPtoWAV.Properties.Resources.resources
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\obj\Release\VinylDraw.csproj.GenerateResource.cache
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\obj\Release\VinylDraw.csproj.CoreCompileInputs.cache
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\obj\Release\BMPtoWAV.exe
+C:\Users\user\Source\Repos\vinyl_draw_2\BMPtoWAV\obj\Release\BMPtoWAV.pdb

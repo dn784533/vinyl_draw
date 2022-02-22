@@ -52,6 +52,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblBytesPerRow = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.lblRowsReversed = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.lblFileName = new System.Windows.Forms.Label();
@@ -81,26 +83,18 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblH360 = new System.Windows.Forms.Label();
+            this.lblH0 = new System.Windows.Forms.Label();
+            this.grpAmplChoice = new System.Windows.Forms.GroupBox();
+            this.rdoSaturation = new System.Windows.Forms.RadioButton();
+            this.rdoLuminosity = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.trkRfreq = new System.Windows.Forms.TrackBar();
-            this.trkGfreq = new System.Windows.Forms.TrackBar();
-            this.trkBfreq = new System.Windows.Forms.TrackBar();
-            this.lblBpcent = new System.Windows.Forms.Label();
-            this.lblRfreq = new System.Windows.Forms.Label();
-            this.lblGpcent = new System.Windows.Forms.Label();
+            this.trkHue0 = new System.Windows.Forms.TrackBar();
+            this.trkHue360 = new System.Windows.Forms.TrackBar();
             this.lblStepsPerRev = new System.Windows.Forms.Label();
-            this.lblGfreq = new System.Windows.Forms.Label();
-            this.lblRpcent = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.lblBfreq = new System.Windows.Forms.Label();
             this.trkStepsPerRev = new System.Windows.Forms.TrackBar();
-            this.trkBpcent = new System.Windows.Forms.TrackBar();
             this.label2 = new System.Windows.Forms.Label();
-            this.trkGpcent = new System.Windows.Forms.TrackBar();
-            this.label3 = new System.Windows.Forms.Label();
-            this.trkRpcent = new System.Windows.Forms.TrackBar();
-            this.label23 = new System.Windows.Forms.Label();
-            this.lblBytesPerRow = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkStartRadiusCm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkEndRadiusCm)).BeginInit();
@@ -109,13 +103,10 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkRfreq)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkGfreq)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkBfreq)).BeginInit();
+            this.grpAmplChoice.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkHue0)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkHue360)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkStepsPerRev)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkBpcent)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkGpcent)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkRpcent)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -376,6 +367,25 @@
             this.tabPage1.Size = new System.Drawing.Size(679, 247);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "BMP File Details";
+            // 
+            // lblBytesPerRow
+            // 
+            this.lblBytesPerRow.AutoSize = true;
+            this.lblBytesPerRow.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBytesPerRow.Location = new System.Drawing.Point(396, 188);
+            this.lblBytesPerRow.Name = "lblBytesPerRow";
+            this.lblBytesPerRow.Size = new System.Drawing.Size(11, 13);
+            this.lblBytesPerRow.TabIndex = 29;
+            this.lblBytesPerRow.Text = "-";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(280, 188);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(76, 13);
+            this.label23.TabIndex = 28;
+            this.label23.Text = "Bytes per Row";
             // 
             // lblRowsReversed
             // 
@@ -646,24 +656,16 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.lblH360);
+            this.tabPage2.Controls.Add(this.lblH0);
+            this.tabPage2.Controls.Add(this.grpAmplChoice);
             this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.trkRfreq);
-            this.tabPage2.Controls.Add(this.trkGfreq);
-            this.tabPage2.Controls.Add(this.trkBfreq);
-            this.tabPage2.Controls.Add(this.lblBpcent);
-            this.tabPage2.Controls.Add(this.lblRfreq);
-            this.tabPage2.Controls.Add(this.lblGpcent);
+            this.tabPage2.Controls.Add(this.trkHue0);
+            this.tabPage2.Controls.Add(this.trkHue360);
             this.tabPage2.Controls.Add(this.lblStepsPerRev);
-            this.tabPage2.Controls.Add(this.lblGfreq);
-            this.tabPage2.Controls.Add(this.lblRpcent);
             this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.lblBfreq);
             this.tabPage2.Controls.Add(this.trkStepsPerRev);
-            this.tabPage2.Controls.Add(this.trkBpcent);
             this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.trkGpcent);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.trkRpcent);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -671,127 +673,112 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Resolution and Colours";
             // 
+            // lblH360
+            // 
+            this.lblH360.AutoSize = true;
+            this.lblH360.Location = new System.Drawing.Point(282, 129);
+            this.lblH360.Name = "lblH360";
+            this.lblH360.Size = new System.Drawing.Size(35, 13);
+            this.lblH360.TabIndex = 48;
+            this.lblH360.Text = "label2";
+            // 
+            // lblH0
+            // 
+            this.lblH0.AutoSize = true;
+            this.lblH0.Location = new System.Drawing.Point(282, 75);
+            this.lblH0.Name = "lblH0";
+            this.lblH0.Size = new System.Drawing.Size(35, 13);
+            this.lblH0.TabIndex = 47;
+            this.lblH0.Text = "label2";
+            // 
+            // grpAmplChoice
+            // 
+            this.grpAmplChoice.Controls.Add(this.rdoSaturation);
+            this.grpAmplChoice.Controls.Add(this.rdoLuminosity);
+            this.grpAmplChoice.Location = new System.Drawing.Point(381, 20);
+            this.grpAmplChoice.Name = "grpAmplChoice";
+            this.grpAmplChoice.Size = new System.Drawing.Size(137, 87);
+            this.grpAmplChoice.TabIndex = 45;
+            this.grpAmplChoice.TabStop = false;
+            this.grpAmplChoice.Text = "Calculate amplitude from";
+            // 
+            // rdoSaturation
+            // 
+            this.rdoSaturation.AutoSize = true;
+            this.rdoSaturation.Location = new System.Drawing.Point(24, 51);
+            this.rdoSaturation.Name = "rdoSaturation";
+            this.rdoSaturation.Size = new System.Drawing.Size(73, 17);
+            this.rdoSaturation.TabIndex = 1;
+            this.rdoSaturation.TabStop = true;
+            this.rdoSaturation.Text = "Saturation";
+            this.rdoSaturation.UseVisualStyleBackColor = true;
+            // 
+            // rdoLuminosity
+            // 
+            this.rdoLuminosity.AutoSize = true;
+            this.rdoLuminosity.Location = new System.Drawing.Point(24, 28);
+            this.rdoLuminosity.Name = "rdoLuminosity";
+            this.rdoLuminosity.Size = new System.Drawing.Size(74, 17);
+            this.rdoLuminosity.TabIndex = 0;
+            this.rdoLuminosity.TabStop = true;
+            this.rdoLuminosity.Text = "Luminosity";
+            this.rdoLuminosity.UseVisualStyleBackColor = true;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 70);
+            this.label1.Location = new System.Drawing.Point(9, 75);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 13);
+            this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 36;
-            this.label1.Text = "Red";
+            this.label1.Text = "Hue 0°";
             // 
-            // trkRfreq
+            // trkHue0
             // 
-            this.trkRfreq.LargeChange = 2;
-            this.trkRfreq.Location = new System.Drawing.Point(68, 61);
-            this.trkRfreq.Maximum = 20;
-            this.trkRfreq.Minimum = 1;
-            this.trkRfreq.Name = "trkRfreq";
-            this.trkRfreq.Size = new System.Drawing.Size(192, 45);
-            this.trkRfreq.TabIndex = 6;
-            this.trkRfreq.Value = 20;
-            this.trkRfreq.Scroll += new System.EventHandler(this.CollectValues);
+            this.trkHue0.LargeChange = 2;
+            this.trkHue0.Location = new System.Drawing.Point(71, 66);
+            this.trkHue0.Maximum = 20;
+            this.trkHue0.Minimum = 1;
+            this.trkHue0.Name = "trkHue0";
+            this.trkHue0.Size = new System.Drawing.Size(192, 45);
+            this.trkHue0.TabIndex = 6;
+            this.trkHue0.Value = 20;
+            this.trkHue0.Scroll += new System.EventHandler(this.trkHue0_Scroll);
             // 
-            // trkGfreq
+            // trkHue360
             // 
-            this.trkGfreq.LargeChange = 2;
-            this.trkGfreq.Location = new System.Drawing.Point(68, 112);
-            this.trkGfreq.Maximum = 20;
-            this.trkGfreq.Minimum = 1;
-            this.trkGfreq.Name = "trkGfreq";
-            this.trkGfreq.Size = new System.Drawing.Size(192, 45);
-            this.trkGfreq.TabIndex = 7;
-            this.trkGfreq.Value = 20;
-            this.trkGfreq.Scroll += new System.EventHandler(this.CollectValues);
-            // 
-            // trkBfreq
-            // 
-            this.trkBfreq.LargeChange = 2;
-            this.trkBfreq.Location = new System.Drawing.Point(68, 163);
-            this.trkBfreq.Maximum = 20;
-            this.trkBfreq.Minimum = 1;
-            this.trkBfreq.Name = "trkBfreq";
-            this.trkBfreq.Size = new System.Drawing.Size(192, 45);
-            this.trkBfreq.TabIndex = 8;
-            this.trkBfreq.Value = 20;
-            this.trkBfreq.Scroll += new System.EventHandler(this.CollectValues);
-            // 
-            // lblBpcent
-            // 
-            this.lblBpcent.AutoSize = true;
-            this.lblBpcent.Location = new System.Drawing.Point(555, 175);
-            this.lblBpcent.Name = "lblBpcent";
-            this.lblBpcent.Size = new System.Drawing.Size(35, 13);
-            this.lblBpcent.TabIndex = 47;
-            this.lblBpcent.Text = "label1";
-            // 
-            // lblRfreq
-            // 
-            this.lblRfreq.AutoSize = true;
-            this.lblRfreq.Location = new System.Drawing.Point(280, 70);
-            this.lblRfreq.Name = "lblRfreq";
-            this.lblRfreq.Size = new System.Drawing.Size(35, 13);
-            this.lblRfreq.TabIndex = 33;
-            this.lblRfreq.Text = "label1";
-            // 
-            // lblGpcent
-            // 
-            this.lblGpcent.AutoSize = true;
-            this.lblGpcent.Location = new System.Drawing.Point(555, 124);
-            this.lblGpcent.Name = "lblGpcent";
-            this.lblGpcent.Size = new System.Drawing.Size(35, 13);
-            this.lblGpcent.TabIndex = 46;
-            this.lblGpcent.Text = "label1";
+            this.trkHue360.LargeChange = 2;
+            this.trkHue360.Location = new System.Drawing.Point(71, 117);
+            this.trkHue360.Maximum = 20;
+            this.trkHue360.Minimum = 1;
+            this.trkHue360.Name = "trkHue360";
+            this.trkHue360.Size = new System.Drawing.Size(192, 45);
+            this.trkHue360.TabIndex = 7;
+            this.trkHue360.Value = 20;
+            this.trkHue360.Scroll += new System.EventHandler(this.trkHue360_Scroll);
             // 
             // lblStepsPerRev
             // 
             this.lblStepsPerRev.AutoSize = true;
-            this.lblStepsPerRev.Location = new System.Drawing.Point(279, 15);
+            this.lblStepsPerRev.Location = new System.Drawing.Point(282, 20);
             this.lblStepsPerRev.Name = "lblStepsPerRev";
             this.lblStepsPerRev.Size = new System.Drawing.Size(35, 13);
             this.lblStepsPerRev.TabIndex = 44;
             this.lblStepsPerRev.Text = "label2";
             // 
-            // lblGfreq
-            // 
-            this.lblGfreq.AutoSize = true;
-            this.lblGfreq.Location = new System.Drawing.Point(280, 124);
-            this.lblGfreq.Name = "lblGfreq";
-            this.lblGfreq.Size = new System.Drawing.Size(35, 13);
-            this.lblGfreq.TabIndex = 34;
-            this.lblGfreq.Text = "label2";
-            // 
-            // lblRpcent
-            // 
-            this.lblRpcent.AutoSize = true;
-            this.lblRpcent.Location = new System.Drawing.Point(555, 70);
-            this.lblRpcent.Name = "lblRpcent";
-            this.lblRpcent.Size = new System.Drawing.Size(35, 13);
-            this.lblRpcent.TabIndex = 45;
-            this.lblRpcent.Text = "label1";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(4, 15);
+            this.label8.Location = new System.Drawing.Point(7, 20);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(60, 13);
             this.label8.TabIndex = 43;
             this.label8.Text = "Steps / rev";
             // 
-            // lblBfreq
-            // 
-            this.lblBfreq.AutoSize = true;
-            this.lblBfreq.Location = new System.Drawing.Point(280, 175);
-            this.lblBfreq.Name = "lblBfreq";
-            this.lblBfreq.Size = new System.Drawing.Size(35, 13);
-            this.lblBfreq.TabIndex = 35;
-            this.lblBfreq.Text = "label3";
-            // 
             // trkStepsPerRev
             // 
             this.trkStepsPerRev.LargeChange = 1;
-            this.trkStepsPerRev.Location = new System.Drawing.Point(71, 15);
+            this.trkStepsPerRev.Location = new System.Drawing.Point(74, 20);
             this.trkStepsPerRev.Maximum = 4;
             this.trkStepsPerRev.Minimum = 1;
             this.trkStepsPerRev.Name = "trkStepsPerRev";
@@ -800,69 +787,14 @@
             this.trkStepsPerRev.Value = 2;
             this.trkStepsPerRev.Scroll += new System.EventHandler(this.CollectValues);
             // 
-            // trkBpcent
-            // 
-            this.trkBpcent.Location = new System.Drawing.Point(375, 163);
-            this.trkBpcent.Maximum = 100;
-            this.trkBpcent.Name = "trkBpcent";
-            this.trkBpcent.Size = new System.Drawing.Size(174, 45);
-            this.trkBpcent.TabIndex = 11;
-            this.trkBpcent.Scroll += new System.EventHandler(this.trkBpcent_Scroll);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 124);
+            this.label2.Location = new System.Drawing.Point(9, 129);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
+            this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 37;
-            this.label2.Text = "Green";
-            // 
-            // trkGpcent
-            // 
-            this.trkGpcent.Location = new System.Drawing.Point(375, 112);
-            this.trkGpcent.Maximum = 100;
-            this.trkGpcent.Name = "trkGpcent";
-            this.trkGpcent.Size = new System.Drawing.Size(174, 45);
-            this.trkGpcent.TabIndex = 10;
-            this.trkGpcent.Scroll += new System.EventHandler(this.trkGpcent_Scroll);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 175);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(28, 13);
-            this.label3.TabIndex = 38;
-            this.label3.Text = "Blue";
-            // 
-            // trkRpcent
-            // 
-            this.trkRpcent.Location = new System.Drawing.Point(375, 61);
-            this.trkRpcent.Maximum = 100;
-            this.trkRpcent.Name = "trkRpcent";
-            this.trkRpcent.Size = new System.Drawing.Size(174, 45);
-            this.trkRpcent.TabIndex = 9;
-            this.trkRpcent.Scroll += new System.EventHandler(this.trkRpcent_Scroll);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(280, 188);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(76, 13);
-            this.label23.TabIndex = 28;
-            this.label23.Text = "Bytes per Row";
-            // 
-            // lblBytesPerRow
-            // 
-            this.lblBytesPerRow.AutoSize = true;
-            this.lblBytesPerRow.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBytesPerRow.Location = new System.Drawing.Point(396, 188);
-            this.lblBytesPerRow.Name = "lblBytesPerRow";
-            this.lblBytesPerRow.Size = new System.Drawing.Size(11, 13);
-            this.lblBytesPerRow.TabIndex = 29;
-            this.lblBytesPerRow.Text = "-";
+            this.label2.Text = "Hue 360°";
             // 
             // Form1
             // 
@@ -891,13 +823,11 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkRfreq)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkGfreq)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkBfreq)).EndInit();
+            this.grpAmplChoice.ResumeLayout(false);
+            this.grpAmplChoice.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trkHue0)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkHue360)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkStepsPerRev)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkBpcent)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkGpcent)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkRpcent)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -931,23 +861,12 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TrackBar trkRfreq;
-        private System.Windows.Forms.TrackBar trkGfreq;
-        private System.Windows.Forms.TrackBar trkBfreq;
-        private System.Windows.Forms.Label lblBpcent;
-        private System.Windows.Forms.Label lblRfreq;
-        private System.Windows.Forms.Label lblGpcent;
+        private System.Windows.Forms.TrackBar trkHue0;
+        private System.Windows.Forms.TrackBar trkHue360;
         private System.Windows.Forms.Label lblStepsPerRev;
-        private System.Windows.Forms.Label lblGfreq;
-        private System.Windows.Forms.Label lblRpcent;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label lblBfreq;
         private System.Windows.Forms.TrackBar trkStepsPerRev;
-        private System.Windows.Forms.TrackBar trkBpcent;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TrackBar trkGpcent;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TrackBar trkRpcent;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
@@ -978,6 +897,11 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label lblBytesPerRow;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.GroupBox grpAmplChoice;
+        private System.Windows.Forms.RadioButton rdoSaturation;
+        private System.Windows.Forms.RadioButton rdoLuminosity;
+        private System.Windows.Forms.Label lblH360;
+        private System.Windows.Forms.Label lblH0;
     }
 }
 

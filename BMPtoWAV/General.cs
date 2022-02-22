@@ -19,128 +19,110 @@ namespace VinylDraw
 {
     public static class Constants
     {
-		public const int SampleRate = 44100;
-		public const int dfltRfreq = 2;
-		public const int dfltGfreq = 4;
-		public const int dfltBfreq = 8;
-		public const int dfltRpcent = 33;
-		public const int dfltGpcent = 33;
-		public const int dfltBpcent = 34;
-		public const int dfltLPcm = 80;
+        public const int SampleRate = 44100;
+        public const int dfltH0 = 2;
+        public const int dfltH360 = 8;
+        public const bool dfltLumForAmpl = true;
+
+        public const int dfltLPcm = 80;
         public const int dfltSelectedIndex = 5; // 45 rpm
         public const int dfltStepsPerRev = 2;
-		public const int dfltStartRadiusCm = 10; // NB - refers to TrackBar control. Value is 10 'notches' of 0.25 up from a base of 6.25 - so 8.75
-		public const int dfltEndRadiusCm = 23; // As above. Value is 18 notches of 0.1 up from a base of 3 - so 5.3
-	}
+        public const int dfltStartRadiusCm = 10; // NB - refers to TrackBar control. Value is 10 'notches' of 0.25 up from a base of 6.25 - so 8.75
+        public const int dfltEndRadiusCm = 23; // As above. Value is 18 notches of 0.1 up from a base of 3 - so 5.3
+    }
 
-	public class wavHeader
+    public class wavHeader
     {
 
     }
 
-	[Serializable]
-	public struct bmpHeader
-	{
-		public short Id;
-		public int FileLength;
-		public int Unused;
-		public int BmpOffset;
-		public int DibHeaderLength;
-		public int WidthPx; 
-		public int HeightPx;
-		public short ColourPlanes;
-		public short BitsPerPx;
+    [Serializable]
+    public struct bmpHeader
+    {
+        public short Id;
+        public int FileLength;
+        public int Unused;
+        public int BmpOffset;
+        public int DibHeaderLength;
+        public int WidthPx;
+        public int HeightPx;
+        public short ColourPlanes;
+        public short BitsPerPx;
         public int BytesPerRow;
-		public int Compression;
-		public int ImageSize;
-		public int HorizRes;
-		public int VertRes;
-		public int ColoursInPalette;
-		public int ImportantColours;
-		public int ColourTableHeader;
+        public int Compression;
+        public int ImageSize;
+        public int HorizRes;
+        public int VertRes;
+        public int ColoursInPalette;
+        public int ImportantColours;
+        public int ColourTableHeader;
 
-		public bool RowsReversed;
+        public bool RowsReversed;
 
-		/// <summary>
-		/// Populates the fields of the BMP header by name with data read from the file.
-		/// </summary>
-		/// <param name="data"></param>
-		/// <returns></returns>
-		public static bmpHeader Populate(byte[] data)
+        /// <summary>
+        /// Populates the fields of the BMP header by name with data read from the file.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static bmpHeader Populate(byte[] data)
         {
-			var br = new BinaryReader(new MemoryStream(data));
-			var bh = default(bmpHeader);
+            var br = new BinaryReader(new MemoryStream(data));
+            var bh = default(bmpHeader);
             int height;
-			bh.Id = br.ReadInt16();
-			bh.FileLength = br.ReadInt32();
-			bh.Unused = br.ReadInt32();
-			bh.BmpOffset = br.ReadInt32();
-			bh.DibHeaderLength = br.ReadInt32();
+            bh.Id = br.ReadInt16();
+            bh.FileLength = br.ReadInt32();
+            bh.Unused = br.ReadInt32();
+            bh.BmpOffset = br.ReadInt32();
+            bh.DibHeaderLength = br.ReadInt32();
             bh.WidthPx = br.ReadInt32();
-        
+
             height = br.ReadInt32();
-			if (height < 0)
+            if (height < 0)
             {
-				bh.HeightPx = -height;
-				bh.RowsReversed = true;
+                bh.HeightPx = -height;
+                bh.RowsReversed = true;
             }
             else
             {
-				bh.HeightPx = height;
-				bh.RowsReversed = false;
+                bh.HeightPx = height;
+                bh.RowsReversed = false;
             }
-			bh.ColourPlanes = br.ReadInt16();
-			bh.BitsPerPx = br.ReadInt16();
+            bh.ColourPlanes = br.ReadInt16();
+            bh.BitsPerPx = br.ReadInt16();
             bh.BytesPerRow = (bh.BitsPerPx * bh.WidthPx + 31) / 32 * 4;
-			bh.Compression = br.ReadInt32();
-			bh.ImageSize = br.ReadInt32();
-			bh.HorizRes = br.ReadInt32();
-			bh.VertRes = br.ReadInt32();
-			bh.ColoursInPalette = br.ReadInt32();
-			bh.ImportantColours = br.ReadInt32();
-			return bh;
+            bh.Compression = br.ReadInt32();
+            bh.ImageSize = br.ReadInt32();
+            bh.HorizRes = br.ReadInt32();
+            bh.VertRes = br.ReadInt32();
+            bh.ColoursInPalette = br.ReadInt32();
+            bh.ImportantColours = br.ReadInt32();
+            return bh;
         }
 
-	}
+    }
 
     /// <summary>
-    /// Holds R/G/B data for a single point in the image.
-    /// A List of bmpRGBData is used to hold the colour table
+    /// Holds H/S/L data for a single point in the image.
+    /// A List of bmpHSLdata is used to hold the colour table values
     /// for sub-16-bit BMPs.
     /// </summary>
-	public struct bmpRGBData
+    public struct bmpHSLdata
     {
-		public byte[] values;
-
-		public bmpRGBData(byte[] iData, bool iReverse) : this()
+        public short Hue;
+        public byte Saturation;
+        public byte Luminosity;
+        public bmpHSLdata(short iH, byte iS, byte iL) : this()
         {
-			values = new byte[3];
-			if (!iReverse)
-			{
-				values[0] = iData[0];
-				values[1] = iData[1];
-				values[2] = iData[2];
-			}
-			else
-            {
-				values[0] = iData[2];
-				values[1] = iData[1];
-				values[2] = iData[0];
-			}
+            Hue = iH;
+            Saturation = iS;
+            Luminosity = iL;
         }
-		public bmpRGBData(byte iR, byte iG, byte iB)
-		{
-			values = new byte[3];
-			values[0] = iR;
-			values[1] = iG;
-			values[2] = iB;
-		}
-	}
+    }
 	public static class BMPAdmin
     {
 		public static bmpHeader BMPHdr;
-		public static List<bmpRGBData> BMPColourTable;
-		public static bmpRGBData[,] BMPImageData { get; set; }
+        public static List<bmpHSLdata> BMPColourTableHSL;
+        public static bmpHSLdata[,] BMPImageDataHSL { get; set; }
 
         /// <summary>
         /// Open and read a BMP file into memory.
@@ -151,7 +133,7 @@ namespace VinylDraw
 			byte[] data = new byte[0x36];
 			int bytesRead = 0;
 			BMPHdr = new bmpHeader();
-            bmpRGBData colour;
+            bmpHSLdata colourHSL;
 
             using (FileStream fs = new FileStream(iFileName, FileMode.Open))
             {
@@ -161,21 +143,22 @@ namespace VinylDraw
 
 				// Check for errors in file
 				if (BMPHdr.Id != 0x4D42) throw new Exception("Not recognised as a BMP file");
+                if (BMPHdr.BitsPerPx == 16) throw new Exception("Vinyl Draw supports 1-, 4-, 8- and 24-bit BMPs but NOT 16-bit.");
 				if (BMPHdr.Compression != 0) throw new Exception("Compressed BMPs are not supported at present!");
 				// Define image array size now dimensions are known
-				BMPImageData = new bmpRGBData[BMPHdr.HeightPx, BMPHdr.WidthPx];
+				BMPImageDataHSL = new bmpHSLdata[BMPHdr.HeightPx, BMPHdr.WidthPx];
 				// If there are fewer than 16 bits per pixel then there should be a colour table comprising
 				// four bytes for each colour specified. Only three bytes are used, for R, G and B values.
 				if (BMPHdr.BitsPerPx < 16)
                 {
                     try
                     {
-                        BMPColourTable = new List<bmpRGBData>();
+                        BMPColourTableHSL = new List<bmpHSLdata>();
                         fs.Position = 0x0E + BMPHdr.DibHeaderLength; // Set position to start of colour table
                         for (int i = 0; i < BMPHdr.ColoursInPalette; i++)
                         {
                             bytesRead = fs.Read(data, 0, 4);
-                            BMPColourTable.Add(new bmpRGBData(data, true));
+                            BMPColourTableHSL.Add(CalcHSLData(data[2],data[1],data[0])); // stored as B,G,R 
                         }
                     }
                     catch (Exception ex)
@@ -187,13 +170,12 @@ namespace VinylDraw
 				fs.Position = BMPHdr.BmpOffset;
 		
 				// Process the bitmap data, expanding where the colour table is used, and store
-				// each pixel as a bmpRGBData struct
+				// each pixel as a bmpHSLdata struct
 				for (int iRow = 0;iRow < BMPHdr.HeightPx;iRow++)
                 {
                     bytesRead = 0;
                     int iCol = 0;
                     while (bytesRead < BMPHdr.BytesPerRow)
-					//for (int iCol = 0; iCol < BMPHdr.WidthPx;)
 					{
                         switch (BMPHdr.BitsPerPx)
                         {
@@ -205,20 +187,9 @@ namespace VinylDraw
                                     break;
                                 }
 								bytesRead += fs.Read(data, 0, 3);
-								// Add the three byte values to the image data, reversing the order for B, G, R
-								BMPImageData[iRow, iCol++] = new bmpRGBData(data, true);
-								break;
-							case 16:
-                                // If we're at the RHS of the image, read any padding bytes
-                                if (iCol > BMPHdr.WidthPx - 1)
-                                {
-                                    bytesRead += fs.Read(data, 0, BMPHdr.BytesPerRow - bytesRead);
-                                    break;
-                                }
-                                bytesRead += fs.Read(data, 0, 2);
-								// Chop up the 2 bytes read into three sets of 5-bit values. Need explicit casts back to byte because bitwise operators
-								// return int types. The two bytes contain data thus: GGGBBBBB, xRRRRRGG.
-								BMPImageData[iRow, iCol++] = new bmpRGBData((byte)((data[1] & 0x7C) >> 2), (byte)(((data[1] & 0x03) << 3) & (data[0] >> 5)), (byte)(data[0] & 0x1F));
+								// Calculate the hue, saturation and luminosity from the three bytes,
+                                // reversing the order for B, G, R, and add this new data to the image.
+								BMPImageDataHSL[iRow, iCol++] = CalcHSLData(data[2], data[1], data[0]);
 								break;
 							case 8:
 								bytesRead += fs.Read(data, 0, 4);
@@ -227,9 +198,10 @@ namespace VinylDraw
                                 {
                                     // If we're at the RHS of the image, jump out
                                     if (iCol > BMPHdr.WidthPx - 1)
-                                        break;                                    // Use colour table to retrieve the RGB values
-                                    colour = BMPColourTable[data[offset]];
-                                    BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
+                                        break;  
+                                    // Use colour table to retrieve the HSL values
+                                    colourHSL = BMPColourTableHSL[data[offset]];
+                                    BMPImageDataHSL[iRow, iCol++] = new bmpHSLdata(colourHSL.Hue, colourHSL.Saturation, colourHSL.Luminosity);
                                 }
 								break;
 							case 4:
@@ -240,15 +212,15 @@ namespace VinylDraw
                                     // If we're at the RHS of the image, jump out
                                     if (iCol > BMPHdr.WidthPx - 1)
                                         break;
-                                    colour = BMPColourTable[(byte)(data[offset] >> 4)];
-                                    BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
+                                    colourHSL = BMPColourTableHSL[(byte)(data[offset] >> 4)];
+                                    BMPImageDataHSL[iRow, iCol++] = new bmpHSLdata(colourHSL.Hue, colourHSL.Saturation, colourHSL.Luminosity);
                                     // If we're at the RHS of the image, jump out
                                     if (iCol > BMPHdr.WidthPx - 1)
                                         break;
-                                    colour = BMPColourTable[(byte)(data[offset] & 0x0F)];
-                                    BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
+                                    colourHSL = BMPColourTableHSL[(byte)(data[offset] & 0x0F)];
+                                    BMPImageDataHSL[iRow, iCol++] = new bmpHSLdata(colourHSL.Hue, colourHSL.Saturation, colourHSL.Luminosity);
                                 }
-								break;
+                                break;
 							case 1:
 								bytesRead += fs.Read(data, 0, 4);
                                 // Iterate through each of the four bytes read
@@ -261,15 +233,15 @@ namespace VinylDraw
                                         if (iCol > BMPHdr.WidthPx - 1)
                                             break;
                                         // If the bit is set, use colour 1
-                                        if ((data[offset] & msk) > 0) colour = BMPColourTable[1];
+                                        if ((data[offset] & msk) > 0) colourHSL = BMPColourTableHSL[1];
                                         // If the bit is clear, use colour 0
-                                        else colour = BMPColourTable[0];
-                                        BMPImageData[iRow, iCol++] = new bmpRGBData(colour.values[0], colour.values[1], colour.values[2]);
+                                        else colourHSL = BMPColourTableHSL[0];
+                                        BMPImageDataHSL[iRow, iCol++] = new bmpHSLdata(colourHSL.Hue, colourHSL.Saturation, colourHSL.Luminosity);
                                     }
                                 }
 								break;
                             default:
-                                throw new Exception("Bits per BMP pixel must be 1, 4, 8, 16 or 24");
+                                throw new Exception("Bits per BMP pixel must be 1, 4, 8 or 24");
 						}
                     }
 				}
@@ -277,6 +249,82 @@ namespace VinylDraw
 			}
 
 		}
+        /// <summary>
+        /// Calculates hue, saturation and luminosity from the three RGB values.
+        /// The 'colours' are inverted first.
+        /// </summary>
+        /// <param name="iR"></param>
+        /// <param name="iG"></param>
+        /// <param name="iB"></param>
+        /// <returns></returns>
+        private static bmpHSLdata CalcHSLData(byte iR, byte iG, byte iB)
+        {
+            // Convert bytes to doubles, flipping bit-values so that colours are inverted
+            // (so 'black' becomes 'white' etc)
+            byte bR = (byte)~iR;
+            byte bG = (byte)~iG;
+            byte bB = (byte)~iB;
+            double dR = bR;
+            double dG = bG;
+            double dB = bB;
+            double hue;
+            double saturation;
+            double luminosity;
+            // Calculate hue, luminosity and saturation for each of the
+            // six orderings of R, G, B components
+            if (dR >= dG)
+            {
+                if (dG >= dB)
+                {
+                    hue = 60 * ((dG - dB) / (dR - dB));               // R >= G >= B
+                    luminosity = (dR + dB) / 510;
+                    saturation = (luminosity >= 1) ? 0 : (dR - dB) / (255 * (1 - Math.Abs(2 * luminosity - 1)));
+                }
+                else
+                {
+                    if (dR >= dB)
+                    {
+                        hue = 60 * (6 - (dB - dG) / (dR - dG));       // R >= B >  G
+                        luminosity = (dR + dG) / 510;
+                        saturation = (luminosity >= 1) ? 0 : (dR - dG) / (255 * (1 - Math.Abs(2 * luminosity - 1)));
+                    }
+                    else
+                    {
+                        hue = 60 * (4 + (dR - dG) / (dB - dG));       // B >  R >= G
+                        luminosity = (dB + dG) / 510;
+                        saturation = (luminosity >= 1) ? 0 : (dB - dG) / (255 * (1 - Math.Abs(2 * luminosity - 1)));
+
+                    }
+                }
+            }
+            else
+            {
+                if (dR >= dB)
+                {
+                    hue = 60 * (2 - (dR - dB) / (dG - dB));           // G >  R >= B
+                    luminosity = (dG + dB) / 510;
+                    saturation = (luminosity >= 1) ? 0 : (dG - dB) / (255 * (1 - Math.Abs(2 * luminosity - 1)));
+                }
+                else
+                {
+                    if (dG >= dB)
+                    {
+                        hue = 60 * (2 + (dB - dR) / (dG - dR));       // G >= B >  R
+                        luminosity = (dG + dR) / 510;
+                        saturation = (luminosity >= 1) ? 0 : (dG - dR) / (255 * (1 - Math.Abs(2 * luminosity - 1)));
+                    }
+                    else
+                    {
+                        hue = 60 * (4 - (dG - dR) / (dB - dR));       // B >  G >  R
+                        luminosity = (dB + dR) / 510;
+                        saturation = (luminosity >= 1) ? 0 : (dB - dR) / (255 * (1 - Math.Abs(2 * luminosity - 1)));
+                    }
+                }
+            }
+            return new bmpHSLdata((short)Math.Round(hue, 0), 
+                                   (byte)Math.Round(100 * saturation, 0),
+                                   (byte)Math.Round(100 * luminosity, 0));
+        }
     }
 
 	public class WAVAdmin
@@ -292,7 +340,6 @@ namespace VinylDraw
 		public double numLines;
 		public int[] freq;
 		public int[] numSamples;
-		public int[] numSampPerWave;
 		public int samplesPerRev;
 		public int samplesPerStep;
 		public double realSamplesPerStep;
@@ -302,11 +349,15 @@ namespace VinylDraw
 		public int sampleBytes;
 		public int fileSize;
 		public List<byte> sampleData;
+        public List<int> hueFreq;
+        public List<int> numSampPerWave;
+        public bool lumForAmpl;
 		public byte[] HeaderBytes = { 0x52, 0x49, 0x46, 0x46, 0x00, 0x00, 0x00, 0x00, 0x57, 0x41, 0x56, 0x45, 0x66, 0x6D, 0x74, 0x20,
 									  0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x44, 0xAC, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00,
 									  0x02, 0x00, 0x10, 0x00, 0x64, 0x61, 0x74, 0x61, 0x00, 0x00, 0x00, 0x00};
 		public EventHandler<ProgressEventArgs> ProgressChanged;
 		public EventHandler<ProcessingEndedEventArgs> ProcessingEnded;
+
 
         /// <summary>
         /// Constructor for WAV file. Parameter values are lifted from the 
@@ -317,18 +368,29 @@ namespace VinylDraw
         /// <param name="idsLPcm"></param>
         /// <param name="iTTrpm"></param>
         /// <param name="iStepsPerRev"></param>
-        /// <param name="ifR"></param>
-        /// <param name="ifG"></param>
-        /// <param name="ifB"></param>
-        /// <param name="idR"></param>
-        /// <param name="idG"></param>
-        /// <param name="idB"></param>
-		public WAVAdmin(double idsOuterRadiusCm, double idsInnerRadiusCm,
+        /// <param name="ih0"></param>
+        /// <param name="ih360"></param>
+        /// <param name="iLum"></param>
+        /// <param name="iInvert"></param>
+        public WAVAdmin(double idsOuterRadiusCm, double idsInnerRadiusCm,
 			double idsLPcm, double iTTrpm, int iStepsPerRev, 
-			int ifR, int ifG, int ifB,
-			int idR, int idG, int idB
+			int iH0, int iH360, bool iLumForAmpl
 			)
         {
+            double dH0 = iH0;
+            double dH360 = iH360;
+            hueFreq = new List<int>();
+            numSampPerWave = new List<int>();
+            // Create look-up table from Hue to Frequency
+            double freqExp = Math.Pow((dH360 / dH0), (1.0d / 359));
+            for (short h = 0; h < 360; h++)
+            {
+                hueFreq.Add((int)(dH0 * Math.Pow(freqExp, h)));
+                numSampPerWave.Add((int)(Constants.SampleRate / hueFreq[h]));
+            }
+
+            lumForAmpl = iLumForAmpl;
+
             amplSign = -1;
 			dsOuterRadiusCm = idsOuterRadiusCm;
 			dsInnerRadiusCm = idsInnerRadiusCm;
@@ -346,26 +408,7 @@ namespace VinylDraw
 			// And thus error that will accrue per step
 			errorSamplesPerStep = realSamplesPerStep - samplesPerStep;
 			sampleData = new List<byte>();
-			// For each of the three colours, save the specified frequency
-			// in the freq array
-			freq = new int[3];
-			freq[0] = ifR; 
-			freq[1] = ifG; 
-			freq[2] = ifB;
-			// For each of the three colours, calculate the number of samples required
-			// for a single angular step at the specified frequency.
-			numSamples = new int[3];
-			numSamples[0] = idR * samplesPerStep / 100;
-			numSamples[1] = idG * samplesPerStep / 100;
-			numSamples[2] = samplesPerStep - numSamples[1] - numSamples[0];
-			numSampPerWave = new int[3];
-			// For each of the three colours, calculate the number of samples required
-			// for a single wavelength at the specified frequency.
-			for (int iColour = 0; iColour < 3; iColour++)
-			{
-				numSampPerWave[iColour] = (int)(Constants.SampleRate / freq[iColour]);
-			}
-
+	
 		}
 		public double Duration { 
 			get
@@ -413,8 +456,11 @@ namespace VinylDraw
                     }
 					// Calculate the column (x) of the BMP to use in a similar manner.
 					imCol = (int)(imCentreX + Math.Cos(theta) * (r - (theta * imStep / (2 * Math.PI))));
-
-					CreateTone(BMPAdmin.BMPImageData[imRow, imCol]);
+   
+					CreateTone(BMPAdmin.BMPImageDataHSL[imRow, imCol].Hue, 
+                        lumForAmpl
+                            ? BMPAdmin.BMPImageDataHSL[imRow, imCol].Luminosity 
+                            : BMPAdmin.BMPImageDataHSL[imRow, imCol].Saturation);
 				}
 				// Report progress back to the main form
 				FireEventProgressChanged((int)(100 * (imStartRadius - r) / (imStartRadius - imEndRadius)));
@@ -438,43 +484,37 @@ namespace VinylDraw
         /// for that point.
         /// </summary>
         /// <param name="iData"></param>
-		public void CreateTone(bmpRGBData iData)
+		public void CreateTone(short iHue, byte iAmplMultiplier)
         {
             int flip;
-			// Iterate through values for three colours
-			for (int iColour=0;iColour<3;iColour++)
+
+            // Invert sign of sine wave, if required, to avoid sudden V-shapes
+            //  in waveform 
+            flip = -amplSign;
+			// Create the right number of samples 
+			for (int iSamp=0;iSamp< samplesPerStep;iSamp++)
             {
-				// Invert colours so "black" becomes "white" etc.
-				byte invColour = (byte)~iData.values[iColour];
-                // Invert sign of sine wave, if required, to avoid sudden V-shapes
-                //  in waveform when moving from one colour to next
-                flip = -amplSign;
-				// Create the right number of samples for each colour 
-				for (int iSamp=0;iSamp< numSamples[iColour];iSamp++)
+				// Create a sine wave, calculating the amplitude from the hue data held for the specified pixel.
+				// The Sine function returns a value in -1...1, which is multiplied by the value held for the luminosity or saturation
+				// (0 - 100) and then multiplied by 326 to give a value in the range -32600...32600
+				short ampl = (short)(Math.Sin(2.0d * Math.PI * iSamp / numSampPerWave[iHue]) * iAmplMultiplier * 326 * flip);
+
+				// If we have reached the last few samples for this wave, reduce the amplitude progressively 
+				// towards zero. This is to avoid sudden jumps in sample values from one wave to the next.
+				double portionLeft = (double)1.0d - ((double)iSamp / (double)samplesPerStep);
+				if (portionLeft <= 0.1)
                 {
-					// Create a sine wave, calculating the amplitude from the RGB data held for the specified pixel.
-					// The Sine function returns a value in -1...1, which is multiplied by the value held for the colour
-					// (0 - 255) and then multiplied by 128 to give a value in the range -32640...32640
-					short ampl = (short)(Math.Sin(2.0d * Math.PI * iSamp / numSampPerWave[iColour]) * invColour * 128 * flip);
-
-					// If we have reached the last few samples for this wave, reduce the amplitude progressively 
-					// towards zero. This is to avoid sudden jumps in sample values from one wave to the next.
-					double portionLeft = (double)1.0d - ((double)iSamp / (double)numSamples[iColour]);
-					if (portionLeft <= 0.1)
+					ampl = (short)(ampl * 10 * portionLeft);
+                    // Get the sign of the waveform just finishing, if its value is non-zero.
+                    if ((portionLeft != 0) && (ampl != 0))
                     {
-						ampl = (short)(ampl * 10 * portionLeft);
-                        // Get the sign of the waveform just finishing, if its value is non-zero.
-                        if ((portionLeft != 0) && (ampl != 0))
-                        {
-                            amplSign = Math.Sign(ampl);
-                        }
+                        amplSign = Math.Sign(ampl);
                     }
-					// Add new data point to WAV data
-					sampleData.Add((byte)(ampl & 0xFF));
-					sampleData.Add((byte)((ampl >> 8) & 0xFF));
-					samplesTotal++;
-
-				}
+                }
+				// Add new data point to WAV data
+				sampleData.Add((byte)(ampl & 0xFF));
+				sampleData.Add((byte)((ampl >> 8) & 0xFF));
+				samplesTotal++;
             }
 			// If the cumulative deficit in the sample count has reached 1, write out a single silent sample
 			currErrorSamples += errorSamplesPerStep;
