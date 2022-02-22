@@ -321,7 +321,7 @@ namespace VinylDraw
                     }
                 }
             }
-            return new bmpHSLdata((short)Math.Round(hue, 0), 
+            return new bmpHSLdata((short)(Math.Round(hue, 0) % 360), // avoid hue value of 360: valid values are 0 - 359
                                    (byte)Math.Round(100 * saturation, 0),
                                    (byte)Math.Round(100 * luminosity, 0));
         }
