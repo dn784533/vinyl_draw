@@ -27,7 +27,7 @@ Brief instructions:
 1. Start the program.
 2. Load your source image using File->Open BMP. 
 3. In the 'Disc Cutting Parameters' group, adjust the values as required. (The default values are for a 7-inch (175mm) 45 rpm record.)
-4. It was somewhat optimistically hoped to accommodate colour images, with individual settings and frequencies for R/G/B output. Perhaps unsurprisingly, colours don't really translate well, and it is recommended that you stick to black-and-white (not greyscale) images. Put simply, you can leave all the settings in the 'Resolution and Colours' group at their default values.
+4. The 'Samples / pixel' setting can  be altered to change the resolution of the scanned image. Changing this value alters the frequency of the waveform output. 
 5. Click 'Create WAV data'. The data file is created in memory.
 6. Save the WAV data file using File->Save WAV.
 
