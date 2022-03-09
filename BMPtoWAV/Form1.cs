@@ -21,7 +21,7 @@ namespace VinylDraw
     public partial class Form1 : Form
     {
         public WAVAdmin wav;
-        public int H0;
+        public int SamplesPerPixel;
         public int H360;
         public bool LumForAmpl;
         public double StartRadiusCm;
@@ -46,18 +46,16 @@ namespace VinylDraw
                 new SpeedRPM("8⅓", 50.0d / 6),
                 new SpeedRPM("16⅔", 100.0d/6),
                 new SpeedRPM("22½", 22.5),
+                new SpeedRPM("33.33", 33.33),
                 new SpeedRPM("33⅓", 100.0d/3),
                 new SpeedRPM("39", 39),
                 new SpeedRPM("45", 45),
                 new SpeedRPM("78", 78)};
             lbxSpeedRPM.DisplayMember = "Text";
             lbxSpeedRPM.DataSource = Speeds;
-            lbxSpeedRPM.SelectedIndex = 5;
-            trkHue0.Value = Constants.dfltH0;
-            trkHue360.Value = Constants.dfltH360;
-            rdoLuminosity.Checked = Constants.dfltLumForAmpl;
+            lbxSpeedRPM.SelectedIndex = Constants.dfltSelectedIndex;
+            trkSamplesPerPixel.Value = Constants.dfltSamplesPerPixel;
             trkLPcm.Value = Constants.dfltLPcm;
-            trkStepsPerRev.Value = Constants.dfltStepsPerRev;
             trkStartRadiusCm.Value = Constants.dfltStartRadiusCm;
             trkEndRadiusCm.Value = Constants.dfltEndRadiusCm;
             CollectValues();
@@ -68,19 +66,19 @@ namespace VinylDraw
         /// </summary>
         private void CollectValues()
         {
-            H0 = trkHue0.Value * 250;
-            H360 = trkHue360.Value * 250;
-            LumForAmpl = (rdoLuminosity.Checked) ? true : false;
+            SamplesPerPixel = 2 * trkSamplesPerPixel.Value + 20;
             StartRadiusCm = 6.25d + trkStartRadiusCm.Value / 4.0d;
             EndRadiusCm = 3.0d + trkEndRadiusCm.Value / 10.0d;
             LPcm = trkLPcm.Value;
-            StepsPerRev = 180 * trkStepsPerRev.Value;
-            lblH0.Text = H0.ToString() + " Hz";
-            lblH360.Text = H360.ToString() + " Hz";
+            lblSamplesPerPixel.Text = SamplesPerPixel.ToString() + " samples: " +
+                Math.Round(1.0 * Constants.SampleRate / SamplesPerPixel, 2).ToString() + " Hz";
+            lblPixelInfo.Text = Math.Round(60.0 / TTSpeedRPM * Constants.SampleRate / SamplesPerPixel, 1) +
+                " pixels per revolution";
+            lblSampleInfo.Text = Math.Round(60.0 / TTSpeedRPM * Constants.SampleRate, 1) +
+                " samples per revolution";
             lblStartRadiusCm.Text = StartRadiusCm.ToString() + " cm";
             lblEndRadiusCm.Text = EndRadiusCm.ToString() + " cm";
             lblLPcm.Text = LPcm.ToString();
-            lblStepsPerRev.Text = StepsPerRev.ToString();
         }
 
         /// <summary>
@@ -144,7 +142,7 @@ namespace VinylDraw
             prgCreate.Visible = true;
             CollectValues();
             wav = new WAVAdmin(StartRadiusCm, EndRadiusCm, LPcm,
-               TTSpeedRPM, StepsPerRev, H0, H360, LumForAmpl);
+               TTSpeedRPM, SamplesPerPixel);
             wav.ProgressChanged += (o, ex) =>
             {
                 prgCreate.Value = ex.Progress;
@@ -198,6 +196,7 @@ namespace VinylDraw
         private void lbxSpeedRPM_SelectedIndexChanged(object sender, EventArgs e)
         {
             TTSpeedRPM = (lbxSpeedRPM.SelectedItem as SpeedRPM).Value;
+            CollectValues();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -227,22 +226,14 @@ namespace VinylDraw
 
         }
 
-        private void trkHue0_Scroll(object sender, EventArgs e)
+        private void trkSamplesPerPixel_Scroll(object sender, EventArgs e)
         {
-            if (trkHue0.Value > trkHue360.Value)
-            {
-                trkHue0.Value = trkHue360.Value;
-            }
             CollectValues();
         }
 
-        private void trkHue360_Scroll(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
-            if (trkHue360.Value < trkHue0.Value)
-            {
-                trkHue360.Value = trkHue0.Value;
-            }
-            CollectValues();
+
         }
     }
     public class SpeedRPM

@@ -49,9 +49,13 @@
             this.prgCreate = new System.Windows.Forms.ProgressBar();
             this.lblProcessingEnded = new System.Windows.Forms.Label();
             this.grpDiscData = new System.Windows.Forms.GroupBox();
+            this.lblPixelInfo = new System.Windows.Forms.Label();
+            this.lblSampleInfo = new System.Windows.Forms.Label();
+            this.lblSamplesPerPixel = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.trkSamplesPerPixel = new System.Windows.Forms.TrackBar();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblBytesPerRow = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.lblRowsReversed = new System.Windows.Forms.Label();
@@ -82,31 +86,13 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.lblH360 = new System.Windows.Forms.Label();
-            this.lblH0 = new System.Windows.Forms.Label();
-            this.grpAmplChoice = new System.Windows.Forms.GroupBox();
-            this.rdoSaturation = new System.Windows.Forms.RadioButton();
-            this.rdoLuminosity = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.trkHue0 = new System.Windows.Forms.TrackBar();
-            this.trkHue360 = new System.Windows.Forms.TrackBar();
-            this.lblStepsPerRev = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.trkStepsPerRev = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkStartRadiusCm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkEndRadiusCm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkLPcm)).BeginInit();
             this.grpDiscData.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.grpAmplChoice.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkHue0)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkHue360)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkStepsPerRev)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkSamplesPerPixel)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -168,7 +154,7 @@
             // 
             // cmdCreateWAVData
             // 
-            this.cmdCreateWAVData.Location = new System.Drawing.Point(15, 499);
+            this.cmdCreateWAVData.Location = new System.Drawing.Point(11, 499);
             this.cmdCreateWAVData.Name = "cmdCreateWAVData";
             this.cmdCreateWAVData.Size = new System.Drawing.Size(106, 23);
             this.cmdCreateWAVData.TabIndex = 12;
@@ -179,20 +165,20 @@
             // trkStartRadiusCm
             // 
             this.trkStartRadiusCm.LargeChange = 4;
-            this.trkStartRadiusCm.Location = new System.Drawing.Point(87, 27);
+            this.trkStartRadiusCm.Location = new System.Drawing.Point(91, 23);
             this.trkStartRadiusCm.Maximum = 35;
             this.trkStartRadiusCm.Name = "trkStartRadiusCm";
-            this.trkStartRadiusCm.Size = new System.Drawing.Size(178, 45);
+            this.trkStartRadiusCm.Size = new System.Drawing.Size(192, 45);
             this.trkStartRadiusCm.TabIndex = 1;
             this.trkStartRadiusCm.Value = 10;
             this.trkStartRadiusCm.Scroll += new System.EventHandler(this.CollectValues);
             // 
             // trkEndRadiusCm
             // 
-            this.trkEndRadiusCm.Location = new System.Drawing.Point(87, 78);
+            this.trkEndRadiusCm.Location = new System.Drawing.Point(91, 77);
             this.trkEndRadiusCm.Maximum = 30;
             this.trkEndRadiusCm.Name = "trkEndRadiusCm";
-            this.trkEndRadiusCm.Size = new System.Drawing.Size(176, 45);
+            this.trkEndRadiusCm.Size = new System.Drawing.Size(190, 45);
             this.trkEndRadiusCm.SmallChange = 2;
             this.trkEndRadiusCm.TabIndex = 2;
             this.trkEndRadiusCm.Value = 18;
@@ -201,7 +187,7 @@
             // lblStartRadiusCm
             // 
             this.lblStartRadiusCm.AutoSize = true;
-            this.lblStartRadiusCm.Location = new System.Drawing.Point(286, 39);
+            this.lblStartRadiusCm.Location = new System.Drawing.Point(302, 36);
             this.lblStartRadiusCm.Name = "lblStartRadiusCm";
             this.lblStartRadiusCm.Size = new System.Drawing.Size(35, 13);
             this.lblStartRadiusCm.TabIndex = 10;
@@ -210,7 +196,7 @@
             // lblEndRadiusCm
             // 
             this.lblEndRadiusCm.AutoSize = true;
-            this.lblEndRadiusCm.Location = new System.Drawing.Point(283, 90);
+            this.lblEndRadiusCm.Location = new System.Drawing.Point(301, 90);
             this.lblEndRadiusCm.Name = "lblEndRadiusCm";
             this.lblEndRadiusCm.Size = new System.Drawing.Size(35, 13);
             this.lblEndRadiusCm.TabIndex = 11;
@@ -239,17 +225,17 @@
             this.lbxSpeedRPM.FormattingEnabled = true;
             this.lbxSpeedRPM.Location = new System.Drawing.Point(403, 39);
             this.lbxSpeedRPM.Name = "lbxSpeedRPM";
-            this.lbxSpeedRPM.Size = new System.Drawing.Size(132, 95);
+            this.lbxSpeedRPM.Size = new System.Drawing.Size(132, 121);
             this.lbxSpeedRPM.TabIndex = 20;
             this.lbxSpeedRPM.SelectedIndexChanged += new System.EventHandler(this.lbxSpeedRPM_SelectedIndexChanged);
             // 
             // trkLPcm
             // 
-            this.trkLPcm.Location = new System.Drawing.Point(87, 132);
+            this.trkLPcm.Location = new System.Drawing.Point(91, 131);
             this.trkLPcm.Maximum = 100;
             this.trkLPcm.Minimum = 20;
             this.trkLPcm.Name = "trkLPcm";
-            this.trkLPcm.Size = new System.Drawing.Size(176, 45);
+            this.trkLPcm.Size = new System.Drawing.Size(190, 45);
             this.trkLPcm.SmallChange = 2;
             this.trkLPcm.TabIndex = 3;
             this.trkLPcm.Value = 72;
@@ -258,7 +244,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 143);
+            this.label6.Location = new System.Drawing.Point(6, 144);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(57, 13);
             this.label6.TabIndex = 22;
@@ -267,7 +253,7 @@
             // lblLPcm
             // 
             this.lblLPcm.AutoSize = true;
-            this.lblLPcm.Location = new System.Drawing.Point(283, 143);
+            this.lblLPcm.Location = new System.Drawing.Point(301, 144);
             this.lblLPcm.Name = "lblLPcm";
             this.lblLPcm.Size = new System.Drawing.Size(35, 13);
             this.lblLPcm.TabIndex = 23;
@@ -291,7 +277,12 @@
             // 
             // grpDiscData
             // 
+            this.grpDiscData.Controls.Add(this.lblPixelInfo);
+            this.grpDiscData.Controls.Add(this.lblSampleInfo);
+            this.grpDiscData.Controls.Add(this.lblSamplesPerPixel);
             this.grpDiscData.Controls.Add(this.label7);
+            this.grpDiscData.Controls.Add(this.label1);
+            this.grpDiscData.Controls.Add(this.trkSamplesPerPixel);
             this.grpDiscData.Controls.Add(this.trkEndRadiusCm);
             this.grpDiscData.Controls.Add(this.trkStartRadiusCm);
             this.grpDiscData.Controls.Add(this.lblStartRadiusCm);
@@ -304,10 +295,37 @@
             this.grpDiscData.Controls.Add(this.lblLPcm);
             this.grpDiscData.Location = new System.Drawing.Point(12, 27);
             this.grpDiscData.Name = "grpDiscData";
-            this.grpDiscData.Size = new System.Drawing.Size(683, 187);
+            this.grpDiscData.Size = new System.Drawing.Size(683, 248);
             this.grpDiscData.TabIndex = 4;
             this.grpDiscData.TabStop = false;
             this.grpDiscData.Text = "Disc Cutting Parameters";
+            // 
+            // lblPixelInfo
+            // 
+            this.lblPixelInfo.AutoSize = true;
+            this.lblPixelInfo.Location = new System.Drawing.Point(301, 217);
+            this.lblPixelInfo.Name = "lblPixelInfo";
+            this.lblPixelInfo.Size = new System.Drawing.Size(35, 13);
+            this.lblPixelInfo.TabIndex = 68;
+            this.lblPixelInfo.Text = "label2";
+            // 
+            // lblSampleInfo
+            // 
+            this.lblSampleInfo.AutoSize = true;
+            this.lblSampleInfo.Location = new System.Drawing.Point(400, 163);
+            this.lblSampleInfo.Name = "lblSampleInfo";
+            this.lblSampleInfo.Size = new System.Drawing.Size(35, 13);
+            this.lblSampleInfo.TabIndex = 49;
+            this.lblSampleInfo.Text = "label2";
+            // 
+            // lblSamplesPerPixel
+            // 
+            this.lblSamplesPerPixel.AutoSize = true;
+            this.lblSamplesPerPixel.Location = new System.Drawing.Point(301, 198);
+            this.lblSamplesPerPixel.Name = "lblSamplesPerPixel";
+            this.lblSamplesPerPixel.Size = new System.Drawing.Size(35, 13);
+            this.lblSamplesPerPixel.TabIndex = 67;
+            this.lblSamplesPerPixel.Text = "label2";
             // 
             // label7
             // 
@@ -318,490 +336,357 @@
             this.label7.TabIndex = 27;
             this.label7.Text = "Turntable RPM";
             // 
-            // tabControl1
+            // label1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 220);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(687, 273);
-            this.tabControl1.TabIndex = 34;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 198);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.TabIndex = 66;
+            this.label1.Text = "Samples / pixel";
             // 
-            // tabPage1
+            // trkSamplesPerPixel
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.lblBytesPerRow);
-            this.tabPage1.Controls.Add(this.label23);
-            this.tabPage1.Controls.Add(this.lblRowsReversed);
-            this.tabPage1.Controls.Add(this.label22);
-            this.tabPage1.Controls.Add(this.lblFileName);
-            this.tabPage1.Controls.Add(this.lblColoursInPalette);
-            this.tabPage1.Controls.Add(this.lblVertRes);
-            this.tabPage1.Controls.Add(this.lblHorizRes);
-            this.tabPage1.Controls.Add(this.lblImageSize);
-            this.tabPage1.Controls.Add(this.lblCompression);
-            this.tabPage1.Controls.Add(this.lblBitsPerPx);
-            this.tabPage1.Controls.Add(this.lblColourPlanes);
-            this.tabPage1.Controls.Add(this.lblHeightPx);
-            this.tabPage1.Controls.Add(this.lblWidthPx);
-            this.tabPage1.Controls.Add(this.lblDibHeaderLength);
-            this.tabPage1.Controls.Add(this.lblBmpOffset);
-            this.tabPage1.Controls.Add(this.lblFileLength);
-            this.tabPage1.Controls.Add(this.label21);
-            this.tabPage1.Controls.Add(this.label20);
-            this.tabPage1.Controls.Add(this.label19);
-            this.tabPage1.Controls.Add(this.label18);
-            this.tabPage1.Controls.Add(this.label17);
-            this.tabPage1.Controls.Add(this.label16);
-            this.tabPage1.Controls.Add(this.label15);
-            this.tabPage1.Controls.Add(this.label14);
-            this.tabPage1.Controls.Add(this.label13);
-            this.tabPage1.Controls.Add(this.label12);
-            this.tabPage1.Controls.Add(this.label11);
-            this.tabPage1.Controls.Add(this.label10);
-            this.tabPage1.Controls.Add(this.label9);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(679, 247);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "BMP File Details";
+            this.trkSamplesPerPixel.LargeChange = 2;
+            this.trkSamplesPerPixel.Location = new System.Drawing.Point(91, 185);
+            this.trkSamplesPerPixel.Maximum = 40;
+            this.trkSamplesPerPixel.Minimum = 1;
+            this.trkSamplesPerPixel.Name = "trkSamplesPerPixel";
+            this.trkSamplesPerPixel.Size = new System.Drawing.Size(192, 45);
+            this.trkSamplesPerPixel.TabIndex = 65;
+            this.trkSamplesPerPixel.Value = 20;
+            this.trkSamplesPerPixel.Scroll += new System.EventHandler(this.trkSamplesPerPixel_Scroll);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lblBytesPerRow);
+            this.groupBox1.Controls.Add(this.label23);
+            this.groupBox1.Controls.Add(this.lblRowsReversed);
+            this.groupBox1.Controls.Add(this.label22);
+            this.groupBox1.Controls.Add(this.lblFileName);
+            this.groupBox1.Controls.Add(this.lblColoursInPalette);
+            this.groupBox1.Controls.Add(this.lblVertRes);
+            this.groupBox1.Controls.Add(this.lblHorizRes);
+            this.groupBox1.Controls.Add(this.lblImageSize);
+            this.groupBox1.Controls.Add(this.lblCompression);
+            this.groupBox1.Controls.Add(this.lblBitsPerPx);
+            this.groupBox1.Controls.Add(this.lblColourPlanes);
+            this.groupBox1.Controls.Add(this.lblHeightPx);
+            this.groupBox1.Controls.Add(this.lblWidthPx);
+            this.groupBox1.Controls.Add(this.lblDibHeaderLength);
+            this.groupBox1.Controls.Add(this.lblBmpOffset);
+            this.groupBox1.Controls.Add(this.lblFileLength);
+            this.groupBox1.Controls.Add(this.label21);
+            this.groupBox1.Controls.Add(this.label20);
+            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.label18);
+            this.groupBox1.Controls.Add(this.label17);
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.label15);
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Location = new System.Drawing.Point(12, 281);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(683, 212);
+            this.groupBox1.TabIndex = 66;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "BMP File Details";
             // 
             // lblBytesPerRow
             // 
             this.lblBytesPerRow.AutoSize = true;
             this.lblBytesPerRow.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBytesPerRow.Location = new System.Drawing.Point(396, 188);
+            this.lblBytesPerRow.Location = new System.Drawing.Point(394, 193);
             this.lblBytesPerRow.Name = "lblBytesPerRow";
             this.lblBytesPerRow.Size = new System.Drawing.Size(11, 13);
-            this.lblBytesPerRow.TabIndex = 29;
+            this.lblBytesPerRow.TabIndex = 94;
             this.lblBytesPerRow.Text = "-";
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(280, 188);
+            this.label23.Location = new System.Drawing.Point(278, 193);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(76, 13);
-            this.label23.TabIndex = 28;
+            this.label23.TabIndex = 93;
             this.label23.Text = "Bytes per Row";
             // 
             // lblRowsReversed
             // 
             this.lblRowsReversed.AutoSize = true;
             this.lblRowsReversed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRowsReversed.Location = new System.Drawing.Point(113, 188);
+            this.lblRowsReversed.Location = new System.Drawing.Point(111, 193);
             this.lblRowsReversed.Name = "lblRowsReversed";
             this.lblRowsReversed.Size = new System.Drawing.Size(11, 13);
-            this.lblRowsReversed.TabIndex = 27;
+            this.lblRowsReversed.TabIndex = 92;
             this.lblRowsReversed.Text = "-";
             // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(8, 188);
+            this.label22.Location = new System.Drawing.Point(6, 193);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(83, 13);
-            this.label22.TabIndex = 26;
+            this.label22.TabIndex = 91;
             this.label22.Text = "Rows Reversed";
             // 
             // lblFileName
             // 
             this.lblFileName.AutoSize = true;
-            this.lblFileName.Location = new System.Drawing.Point(113, 20);
+            this.lblFileName.Location = new System.Drawing.Point(111, 25);
             this.lblFileName.Name = "lblFileName";
             this.lblFileName.Size = new System.Drawing.Size(10, 13);
-            this.lblFileName.TabIndex = 25;
+            this.lblFileName.TabIndex = 90;
             this.lblFileName.Text = "-";
             // 
             // lblColoursInPalette
             // 
             this.lblColoursInPalette.AutoSize = true;
             this.lblColoursInPalette.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblColoursInPalette.Location = new System.Drawing.Point(396, 164);
+            this.lblColoursInPalette.Location = new System.Drawing.Point(394, 169);
             this.lblColoursInPalette.Name = "lblColoursInPalette";
             this.lblColoursInPalette.Size = new System.Drawing.Size(11, 13);
-            this.lblColoursInPalette.TabIndex = 24;
+            this.lblColoursInPalette.TabIndex = 89;
             this.lblColoursInPalette.Text = "-";
             // 
             // lblVertRes
             // 
             this.lblVertRes.AutoSize = true;
             this.lblVertRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVertRes.Location = new System.Drawing.Point(396, 140);
+            this.lblVertRes.Location = new System.Drawing.Point(394, 145);
             this.lblVertRes.Name = "lblVertRes";
             this.lblVertRes.Size = new System.Drawing.Size(11, 13);
-            this.lblVertRes.TabIndex = 23;
+            this.lblVertRes.TabIndex = 88;
             this.lblVertRes.Text = "-";
             // 
             // lblHorizRes
             // 
             this.lblHorizRes.AutoSize = true;
             this.lblHorizRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHorizRes.Location = new System.Drawing.Point(396, 116);
+            this.lblHorizRes.Location = new System.Drawing.Point(394, 121);
             this.lblHorizRes.Name = "lblHorizRes";
             this.lblHorizRes.Size = new System.Drawing.Size(11, 13);
-            this.lblHorizRes.TabIndex = 22;
+            this.lblHorizRes.TabIndex = 87;
             this.lblHorizRes.Text = "-";
             // 
             // lblImageSize
             // 
             this.lblImageSize.AutoSize = true;
             this.lblImageSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImageSize.Location = new System.Drawing.Point(397, 92);
+            this.lblImageSize.Location = new System.Drawing.Point(395, 97);
             this.lblImageSize.Name = "lblImageSize";
             this.lblImageSize.Size = new System.Drawing.Size(11, 13);
-            this.lblImageSize.TabIndex = 21;
+            this.lblImageSize.TabIndex = 86;
             this.lblImageSize.Text = "-";
             // 
             // lblCompression
             // 
             this.lblCompression.AutoSize = true;
             this.lblCompression.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompression.Location = new System.Drawing.Point(397, 68);
+            this.lblCompression.Location = new System.Drawing.Point(395, 73);
             this.lblCompression.Name = "lblCompression";
             this.lblCompression.Size = new System.Drawing.Size(11, 13);
-            this.lblCompression.TabIndex = 20;
+            this.lblCompression.TabIndex = 85;
             this.lblCompression.Text = "-";
             // 
             // lblBitsPerPx
             // 
             this.lblBitsPerPx.AutoSize = true;
             this.lblBitsPerPx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBitsPerPx.Location = new System.Drawing.Point(397, 44);
+            this.lblBitsPerPx.Location = new System.Drawing.Point(395, 49);
             this.lblBitsPerPx.Name = "lblBitsPerPx";
             this.lblBitsPerPx.Size = new System.Drawing.Size(11, 13);
-            this.lblBitsPerPx.TabIndex = 19;
+            this.lblBitsPerPx.TabIndex = 84;
             this.lblBitsPerPx.Text = "-";
             // 
             // lblColourPlanes
             // 
             this.lblColourPlanes.AutoSize = true;
             this.lblColourPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblColourPlanes.Location = new System.Drawing.Point(113, 164);
+            this.lblColourPlanes.Location = new System.Drawing.Point(111, 169);
             this.lblColourPlanes.Name = "lblColourPlanes";
             this.lblColourPlanes.Size = new System.Drawing.Size(11, 13);
-            this.lblColourPlanes.TabIndex = 18;
+            this.lblColourPlanes.TabIndex = 83;
             this.lblColourPlanes.Text = "-";
             // 
             // lblHeightPx
             // 
             this.lblHeightPx.AutoSize = true;
             this.lblHeightPx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHeightPx.Location = new System.Drawing.Point(113, 140);
+            this.lblHeightPx.Location = new System.Drawing.Point(111, 145);
             this.lblHeightPx.Name = "lblHeightPx";
             this.lblHeightPx.Size = new System.Drawing.Size(11, 13);
-            this.lblHeightPx.TabIndex = 17;
+            this.lblHeightPx.TabIndex = 82;
             this.lblHeightPx.Text = "-";
             // 
             // lblWidthPx
             // 
             this.lblWidthPx.AutoSize = true;
             this.lblWidthPx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWidthPx.Location = new System.Drawing.Point(113, 116);
+            this.lblWidthPx.Location = new System.Drawing.Point(111, 121);
             this.lblWidthPx.Name = "lblWidthPx";
             this.lblWidthPx.Size = new System.Drawing.Size(11, 13);
-            this.lblWidthPx.TabIndex = 16;
+            this.lblWidthPx.TabIndex = 81;
             this.lblWidthPx.Text = "-";
             // 
             // lblDibHeaderLength
             // 
             this.lblDibHeaderLength.AutoSize = true;
             this.lblDibHeaderLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDibHeaderLength.Location = new System.Drawing.Point(113, 92);
+            this.lblDibHeaderLength.Location = new System.Drawing.Point(111, 97);
             this.lblDibHeaderLength.Name = "lblDibHeaderLength";
             this.lblDibHeaderLength.Size = new System.Drawing.Size(11, 13);
-            this.lblDibHeaderLength.TabIndex = 15;
+            this.lblDibHeaderLength.TabIndex = 80;
             this.lblDibHeaderLength.Text = "-";
             // 
             // lblBmpOffset
             // 
             this.lblBmpOffset.AutoSize = true;
             this.lblBmpOffset.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBmpOffset.Location = new System.Drawing.Point(113, 68);
+            this.lblBmpOffset.Location = new System.Drawing.Point(111, 73);
             this.lblBmpOffset.Name = "lblBmpOffset";
             this.lblBmpOffset.Size = new System.Drawing.Size(11, 13);
-            this.lblBmpOffset.TabIndex = 14;
+            this.lblBmpOffset.TabIndex = 79;
             this.lblBmpOffset.Text = "-";
             // 
             // lblFileLength
             // 
             this.lblFileLength.AutoSize = true;
             this.lblFileLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFileLength.Location = new System.Drawing.Point(113, 44);
+            this.lblFileLength.Location = new System.Drawing.Point(111, 49);
             this.lblFileLength.Name = "lblFileLength";
             this.lblFileLength.Size = new System.Drawing.Size(11, 13);
-            this.lblFileLength.TabIndex = 13;
+            this.lblFileLength.TabIndex = 78;
             this.lblFileLength.Text = "-";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(8, 20);
+            this.label21.Location = new System.Drawing.Point(6, 25);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(54, 13);
-            this.label21.TabIndex = 12;
+            this.label21.TabIndex = 77;
             this.label21.Text = "File Name";
             // 
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(280, 164);
+            this.label20.Location = new System.Drawing.Point(278, 169);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(89, 13);
-            this.label20.TabIndex = 11;
+            this.label20.TabIndex = 76;
             this.label20.Text = "Colours in Palette";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(280, 140);
+            this.label19.Location = new System.Drawing.Point(278, 145);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(95, 13);
-            this.label19.TabIndex = 10;
+            this.label19.TabIndex = 75;
             this.label19.Text = "Vertical Resolution";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(280, 116);
+            this.label18.Location = new System.Drawing.Point(278, 121);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(107, 13);
-            this.label18.TabIndex = 9;
+            this.label18.TabIndex = 74;
             this.label18.Text = "Horizontal Resolution";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(280, 92);
+            this.label17.Location = new System.Drawing.Point(278, 97);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 13);
-            this.label17.TabIndex = 8;
+            this.label17.TabIndex = 73;
             this.label17.Text = "Image Size";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(280, 68);
+            this.label16.Location = new System.Drawing.Point(278, 73);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(94, 13);
-            this.label16.TabIndex = 7;
+            this.label16.TabIndex = 72;
             this.label16.Text = "Compression Type";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(280, 44);
+            this.label15.Location = new System.Drawing.Point(278, 49);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(67, 13);
-            this.label15.TabIndex = 6;
+            this.label15.TabIndex = 71;
             this.label15.Text = "Bits per Pixel";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 164);
+            this.label14.Location = new System.Drawing.Point(6, 169);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(72, 13);
-            this.label14.TabIndex = 5;
+            this.label14.TabIndex = 70;
             this.label14.Text = "Colour Planes";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(7, 140);
+            this.label13.Location = new System.Drawing.Point(5, 145);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(58, 13);
-            this.label13.TabIndex = 4;
+            this.label13.TabIndex = 69;
             this.label13.Text = "Height (px)";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(8, 116);
+            this.label12.Location = new System.Drawing.Point(6, 121);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(55, 13);
-            this.label12.TabIndex = 3;
+            this.label12.TabIndex = 68;
             this.label12.Text = "Width (px)";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(8, 92);
+            this.label11.Location = new System.Drawing.Point(6, 97);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(99, 13);
-            this.label11.TabIndex = 2;
+            this.label11.TabIndex = 67;
             this.label11.Text = "DIB Header Length";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(8, 68);
+            this.label10.Location = new System.Drawing.Point(6, 73);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(70, 13);
-            this.label10.TabIndex = 1;
+            this.label10.TabIndex = 66;
             this.label10.Text = "Bitmap Offset";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 44);
+            this.label9.Location = new System.Drawing.Point(6, 49);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(59, 13);
-            this.label9.TabIndex = 0;
+            this.label9.TabIndex = 65;
             this.label9.Text = "File Length";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.lblH360);
-            this.tabPage2.Controls.Add(this.lblH0);
-            this.tabPage2.Controls.Add(this.grpAmplChoice);
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.trkHue0);
-            this.tabPage2.Controls.Add(this.trkHue360);
-            this.tabPage2.Controls.Add(this.lblStepsPerRev);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.trkStepsPerRev);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(679, 247);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Resolution and Colours";
-            // 
-            // lblH360
-            // 
-            this.lblH360.AutoSize = true;
-            this.lblH360.Location = new System.Drawing.Point(282, 129);
-            this.lblH360.Name = "lblH360";
-            this.lblH360.Size = new System.Drawing.Size(35, 13);
-            this.lblH360.TabIndex = 48;
-            this.lblH360.Text = "label2";
-            // 
-            // lblH0
-            // 
-            this.lblH0.AutoSize = true;
-            this.lblH0.Location = new System.Drawing.Point(282, 75);
-            this.lblH0.Name = "lblH0";
-            this.lblH0.Size = new System.Drawing.Size(35, 13);
-            this.lblH0.TabIndex = 47;
-            this.lblH0.Text = "label2";
-            // 
-            // grpAmplChoice
-            // 
-            this.grpAmplChoice.Controls.Add(this.rdoSaturation);
-            this.grpAmplChoice.Controls.Add(this.rdoLuminosity);
-            this.grpAmplChoice.Location = new System.Drawing.Point(381, 20);
-            this.grpAmplChoice.Name = "grpAmplChoice";
-            this.grpAmplChoice.Size = new System.Drawing.Size(137, 87);
-            this.grpAmplChoice.TabIndex = 45;
-            this.grpAmplChoice.TabStop = false;
-            this.grpAmplChoice.Text = "Calculate amplitude from";
-            // 
-            // rdoSaturation
-            // 
-            this.rdoSaturation.AutoSize = true;
-            this.rdoSaturation.Location = new System.Drawing.Point(24, 51);
-            this.rdoSaturation.Name = "rdoSaturation";
-            this.rdoSaturation.Size = new System.Drawing.Size(73, 17);
-            this.rdoSaturation.TabIndex = 1;
-            this.rdoSaturation.TabStop = true;
-            this.rdoSaturation.Text = "Saturation";
-            this.rdoSaturation.UseVisualStyleBackColor = true;
-            // 
-            // rdoLuminosity
-            // 
-            this.rdoLuminosity.AutoSize = true;
-            this.rdoLuminosity.Location = new System.Drawing.Point(24, 28);
-            this.rdoLuminosity.Name = "rdoLuminosity";
-            this.rdoLuminosity.Size = new System.Drawing.Size(74, 17);
-            this.rdoLuminosity.TabIndex = 0;
-            this.rdoLuminosity.TabStop = true;
-            this.rdoLuminosity.Text = "Luminosity";
-            this.rdoLuminosity.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 36;
-            this.label1.Text = "Hue 0°";
-            // 
-            // trkHue0
-            // 
-            this.trkHue0.LargeChange = 2;
-            this.trkHue0.Location = new System.Drawing.Point(71, 66);
-            this.trkHue0.Maximum = 20;
-            this.trkHue0.Minimum = 1;
-            this.trkHue0.Name = "trkHue0";
-            this.trkHue0.Size = new System.Drawing.Size(192, 45);
-            this.trkHue0.TabIndex = 6;
-            this.trkHue0.Value = 20;
-            this.trkHue0.Scroll += new System.EventHandler(this.trkHue0_Scroll);
-            // 
-            // trkHue360
-            // 
-            this.trkHue360.LargeChange = 2;
-            this.trkHue360.Location = new System.Drawing.Point(71, 117);
-            this.trkHue360.Maximum = 20;
-            this.trkHue360.Minimum = 1;
-            this.trkHue360.Name = "trkHue360";
-            this.trkHue360.Size = new System.Drawing.Size(192, 45);
-            this.trkHue360.TabIndex = 7;
-            this.trkHue360.Value = 20;
-            this.trkHue360.Scroll += new System.EventHandler(this.trkHue360_Scroll);
-            // 
-            // lblStepsPerRev
-            // 
-            this.lblStepsPerRev.AutoSize = true;
-            this.lblStepsPerRev.Location = new System.Drawing.Point(282, 20);
-            this.lblStepsPerRev.Name = "lblStepsPerRev";
-            this.lblStepsPerRev.Size = new System.Drawing.Size(35, 13);
-            this.lblStepsPerRev.TabIndex = 44;
-            this.lblStepsPerRev.Text = "label2";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 20);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(60, 13);
-            this.label8.TabIndex = 43;
-            this.label8.Text = "Steps / rev";
-            // 
-            // trkStepsPerRev
-            // 
-            this.trkStepsPerRev.LargeChange = 1;
-            this.trkStepsPerRev.Location = new System.Drawing.Point(74, 20);
-            this.trkStepsPerRev.Maximum = 4;
-            this.trkStepsPerRev.Minimum = 1;
-            this.trkStepsPerRev.Name = "trkStepsPerRev";
-            this.trkStepsPerRev.Size = new System.Drawing.Size(189, 45);
-            this.trkStepsPerRev.TabIndex = 5;
-            this.trkStepsPerRev.Value = 2;
-            this.trkStepsPerRev.Scroll += new System.EventHandler(this.CollectValues);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 129);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 13);
-            this.label2.TabIndex = 37;
-            this.label2.Text = "Hue 360°";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(878, 537);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpDiscData);
             this.Controls.Add(this.lblProcessingEnded);
             this.Controls.Add(this.prgCreate);
@@ -818,16 +703,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.trkLPcm)).EndInit();
             this.grpDiscData.ResumeLayout(false);
             this.grpDiscData.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.grpAmplChoice.ResumeLayout(false);
-            this.grpAmplChoice.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trkHue0)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkHue360)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trkStepsPerRev)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trkSamplesPerPixel)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -857,29 +735,17 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label lblSampleInfo;
+        private System.Windows.Forms.Label lblPixelInfo;
+        private System.Windows.Forms.Label lblSamplesPerPixel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TrackBar trkHue0;
-        private System.Windows.Forms.TrackBar trkHue360;
-        private System.Windows.Forms.Label lblStepsPerRev;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TrackBar trkStepsPerRev;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TrackBar trkSamplesPerPixel;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblBytesPerRow;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label lblRowsReversed;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label lblFileName;
         private System.Windows.Forms.Label lblColoursInPalette;
         private System.Windows.Forms.Label lblVertRes;
         private System.Windows.Forms.Label lblHorizRes;
@@ -892,16 +758,19 @@
         private System.Windows.Forms.Label lblDibHeaderLength;
         private System.Windows.Forms.Label lblBmpOffset;
         private System.Windows.Forms.Label lblFileLength;
-        private System.Windows.Forms.Label lblFileName;
-        private System.Windows.Forms.Label lblRowsReversed;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label lblBytesPerRow;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.GroupBox grpAmplChoice;
-        private System.Windows.Forms.RadioButton rdoSaturation;
-        private System.Windows.Forms.RadioButton rdoLuminosity;
-        private System.Windows.Forms.Label lblH360;
-        private System.Windows.Forms.Label lblH0;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
     }
 }
 

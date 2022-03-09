@@ -53,18 +53,18 @@
             this.txtHelp2.Multiline = true;
             this.txtHelp2.Name = "txtHelp2";
             this.txtHelp2.ReadOnly = true;
-            this.txtHelp2.Size = new System.Drawing.Size(854, 160);
+            this.txtHelp2.Size = new System.Drawing.Size(854, 221);
             this.txtHelp2.TabIndex = 1;
             this.txtHelp2.TabStop = false;
             // 
             // txtHelp4
             // 
             this.txtHelp4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHelp4.Location = new System.Drawing.Point(12, 315);
+            this.txtHelp4.Location = new System.Drawing.Point(12, 376);
             this.txtHelp4.Multiline = true;
             this.txtHelp4.Name = "txtHelp4";
             this.txtHelp4.ReadOnly = true;
-            this.txtHelp4.Size = new System.Drawing.Size(854, 176);
+            this.txtHelp4.Size = new System.Drawing.Size(854, 115);
             this.txtHelp4.TabIndex = 2;
             this.txtHelp4.TabStop = false;
             // 
@@ -83,7 +83,7 @@
             // txtHelp3
             // 
             this.txtHelp3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHelp3.Location = new System.Drawing.Point(12, 253);
+            this.txtHelp3.Location = new System.Drawing.Point(12, 314);
             this.txtHelp3.Multiline = true;
             this.txtHelp3.Name = "txtHelp3";
             this.txtHelp3.ReadOnly = true;

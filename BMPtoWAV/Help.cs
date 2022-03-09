@@ -26,19 +26,19 @@ namespace VinylDraw
         public const string help2 = "Disc Cutting parameters:\r\n\r\nStart Radius - on the blank disc, the radius " +
             "at which the inscription will start.\r\n\r\nEnd Radius - on the blank disc, the radius at which the inscription will end. This should be the end of " +
             "the recorded programme material, not the locked groove.\r\n\r\nLines / cm - the number of windings of the groove that will occupy each " +
-            "linear centimetre of radius.\r\n\r\nTurntable RPM - the speed of the recording lathe platter.";
+            "linear centimetre of radius.\r\n\r\nTurntable RPM - the speed of the recording lathe platter.\r\n\r\n" +
+            "Samples / pixel - the number of WAV file samples that will be used to represent each pixel of the image. " +
+            "This number is divided in to the sample rate (usually 44100) to determine the frequency of the output waveform.";
         public const string help3 = "BMP File Details\r\n\r\n" +
-            "The details on this panel are filled in when the selected BMP file has successfully loaded.";
+            "These details are filled in when the selected BMP file has successfully loaded.";
         public const string help4 = "Resolution and Colours\r\n\r\n" +
-            "Steps / rev - the annular part of the image that will be inscribed is processed in a spiral, starting at the edge and moving gradually inward, the "+
-            "tightness of the spiral being determined by the 'Lines / cm' setting above. Within each winding of the spiral, the image will be sampled at data points " +
-            "at the rate specified here. Allowed values are 180, 360, 540 and 720.\r\n\r\n" +
-            "An attempt is made to represent colour by calculating hue, saturation and luminosity for each point. The hue value - a circular scale running from 0 to 360 - " +
-            "is used to determine the frequency of the waveform that will be created for that point. The frequencies for 0 and 360 can be set on this panel, and the intermediate " +
-            "frequency values are interpolated logarithmically. The amplitude of the recorded wave can be set to depend on luminosity (recommended) or saturation. " +
+            "An attempt is made to represent colour by calculating a greyscale value for each point, using the NTSC standard weightings " +
+            "for R, G and B values. The frequency of the output waveform is constant, based on the user setting of 'Samples / pixel' above, " +
+            "but the amplitude varies depending on the greyscale value calculated for each point. " +
             "Bear in mind that although this allows (in theory) images of 16.7 million colours to " +
             "be used as input material, such images may not translate well when reduced to just one colour (i.e. black)!";
-        public string help5 = "This version built " + BMPtoWAV.Properties.Resources.BuildDate + "Copyright © David Nelson, 2022.";
+        public string help5 = "This version built " + BMPtoWAV.Properties.Resources.BuildDate + "Copyright © David Nelson, 2022." +
+            " Acknowledgement: Markrob at Lathe Trolls for the NTSC greyscale calculation.";
 
         public Help()
         {
