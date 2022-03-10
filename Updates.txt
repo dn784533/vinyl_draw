@@ -1,3 +1,7 @@
+2022-03-10 Fixed (?) error on loading certain 1-, 4- and 8-bit BMP files where colour count is zero.
+
+2022-03-09 Reworked colour processing to use the NTSC standard calculation for representation of colours in greyscale. This gives the most natural 'colour' output.
+
 2022-02-22 Reworked colour processing to use Hue, Saturation, Luminosity for creating the section of waveform for a point in the image. The Hue value (0 - 360) is mapped logarithmically to a frequency between the two values specified by the user in the GUI. Either the Luminosity or the Saturation value (both 0 - 100) can be selected to determine the amplitude of the wave. This seems to work better than using separate sections of waveform at frequencies for R, G, B. The resulting sound file is also slightly less harsh to listen to!
 Updated Help panel to reflect this.
 Also fixed several bugs: 
