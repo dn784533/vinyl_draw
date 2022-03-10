@@ -76,9 +76,11 @@ namespace VinylDraw
                 " pixels per revolution";
             lblSampleInfo.Text = Math.Round(60.0 / TTSpeedRPM * Constants.SampleRate, 1) +
                 " samples per revolution";
-            lblStartRadiusCm.Text = StartRadiusCm.ToString() + " cm";
-            lblEndRadiusCm.Text = EndRadiusCm.ToString() + " cm";
-            lblLPcm.Text = LPcm.ToString();
+            lblStartRadiusCm.Text = StartRadiusCm.ToString() + " cm (" + 
+                Math.Round(StartRadiusCm / 2.54, 2).ToString() + " in.)";
+            lblEndRadiusCm.Text = EndRadiusCm.ToString() + " cm (" +
+                Math.Round(EndRadiusCm / 2.54, 2).ToString() + " in.)";
+            lblLPcm.Text = LPcm.ToString() + " lines/cm (" + Math.Round(LPcm * 2.54, 0).ToString() + " lines/in.)";
         }
 
         /// <summary>
@@ -166,21 +168,28 @@ namespace VinylDraw
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (wav != null)
-            {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.InitialDirectory = Application.StartupPath;
-                sfd.Title = "Save WAV file";
-                sfd.CheckPathExists = true;
-                sfd.DefaultExt = "wav";
-                sfd.Filter = "WAV files (*.wav)|*.wav";
-                sfd.FilterIndex = 0;
-                sfd.RestoreDirectory = false;
-                sfd.ShowDialog();
-                if (sfd.FileName != "")
-                {
-                    wav.WriteWAVFile(sfd.FileName);
+                try
+                { 
+                    {
+                        SaveFileDialog sfd = new SaveFileDialog();
+                        sfd.InitialDirectory = Application.StartupPath;
+                        sfd.Title = "Save WAV file";
+                        sfd.CheckPathExists = true;
+                        sfd.DefaultExt = "wav";
+                        sfd.Filter = "WAV files (*.wav)|*.wav";
+                        sfd.FilterIndex = 0;
+                        sfd.RestoreDirectory = false;
+                        sfd.ShowDialog();
+                        if (sfd.FileName != "")
+                        {
+                            wav.WriteWAVFile(sfd.FileName);
+                        }
+                    }
                 }
-            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "An error has occurred while saving the WAV file.");
+                }
         }
         /// <summary>
         /// Wrapper for event. Called from several controls on panel.

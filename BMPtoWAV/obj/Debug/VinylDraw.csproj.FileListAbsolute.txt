@@ -1,7 +1,6 @@
 C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\bin\Debug\BMPtoWAV.exe.config
 C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\bin\Debug\BMPtoWAV.exe
 C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\bin\Debug\BMPtoWAV.pdb
-C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\obj\Debug\VinylDraw.csproj.AssemblyReference.cache
 C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\obj\Debug\BMPtoWAV.g.resources
 C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\obj\Debug\VinylDraw.Form1.resources
 C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\obj\Debug\VinylDraw.Help.resources
@@ -10,3 +9,4 @@ C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\obj\Debug\VinylDraw.csproj.Gener
 C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\obj\Debug\VinylDraw.csproj.CoreCompileInputs.cache
 C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\obj\Debug\BMPtoWAV.exe
 C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\obj\Debug\BMPtoWAV.pdb
+C:\Users\user\Source\Repos\vinyl_draw3\BMPtoWAV\obj\Debug\VinylDraw.csproj.AssemblyReference.cache

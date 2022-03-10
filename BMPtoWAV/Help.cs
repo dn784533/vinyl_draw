@@ -22,7 +22,8 @@ namespace VinylDraw
             "If the sound file is inscribed on to a disc record using a lathe, an approximation of the original image should (if things are working " +
             "well) be presented as visible sound wave patterns in the inscribed surface. The portion of the original image that will be inscribed " +
             "is limited to a circular ring section whose outer diameter is the same as the shorter of the rectangular dimensions of the image. The thickness " +
-            "of the ring is determined by the disc cutting parameters listed below.";
+            "of the ring is determined by the disc cutting parameters listed below.\r\n\r\n24-bit BMPs are supported. 16- and 32-bit BMPs are NOT supported. Lower " +
+            "bit-rates (1, 4, 8) may work, but are not guaranteed to.";
         public const string help2 = "Disc Cutting parameters:\r\n\r\nStart Radius - on the blank disc, the radius " +
             "at which the inscription will start.\r\n\r\nEnd Radius - on the blank disc, the radius at which the inscription will end. This should be the end of " +
             "the recorded programme material, not the locked groove.\r\n\r\nLines / cm - the number of windings of the groove that will occupy each " +

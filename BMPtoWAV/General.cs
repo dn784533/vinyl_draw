@@ -91,6 +91,7 @@ namespace VinylDraw
             bh.HorizRes = br.ReadInt32();
             bh.VertRes = br.ReadInt32();
             bh.ColoursInPalette = br.ReadInt32();
+            if (bh.ColoursInPalette == 0) bh.ColoursInPalette = (int)(Math.Pow(2, bh.BitsPerPx));
             bh.ImportantColours = br.ReadInt32();
             return bh;
         }
@@ -411,15 +412,22 @@ namespace VinylDraw
         }
 		public void WriteWAVFile(string iFileName)
 		{
-			using (FileStream fs = new FileStream(iFileName, FileMode.Create))
-			{
-				// The 44 bytes of the header
-				fs.Write(HeaderBytes, 0, 44);
-				// The bytes of actual data (which will number twice the number of samples).
-				fs.Write(sampleData.ToArray(), 0, sampleBytes);
-				// End gracefully.
-				fs.Close();
-			}
+            try
+            {
+                using (FileStream fs = new FileStream(iFileName, FileMode.Create))
+                {
+                    // The 44 bytes of the header
+                    fs.Write(HeaderBytes, 0, 44);
+                    // The bytes of actual data (which will number twice the number of samples).
+                    fs.Write(sampleData.ToArray(), 0, sampleBytes);
+                    // End gracefully.
+                    fs.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 		}
 
         /// <summary>

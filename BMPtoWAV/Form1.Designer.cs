@@ -223,7 +223,7 @@
             // lbxSpeedRPM
             // 
             this.lbxSpeedRPM.FormattingEnabled = true;
-            this.lbxSpeedRPM.Location = new System.Drawing.Point(403, 39);
+            this.lbxSpeedRPM.Location = new System.Drawing.Point(509, 36);
             this.lbxSpeedRPM.Name = "lbxSpeedRPM";
             this.lbxSpeedRPM.Size = new System.Drawing.Size(132, 121);
             this.lbxSpeedRPM.TabIndex = 20;
@@ -312,7 +312,7 @@
             // lblSampleInfo
             // 
             this.lblSampleInfo.AutoSize = true;
-            this.lblSampleInfo.Location = new System.Drawing.Point(400, 163);
+            this.lblSampleInfo.Location = new System.Drawing.Point(506, 160);
             this.lblSampleInfo.Name = "lblSampleInfo";
             this.lblSampleInfo.Size = new System.Drawing.Size(35, 13);
             this.lblSampleInfo.TabIndex = 49;
@@ -330,7 +330,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(400, 23);
+            this.label7.Location = new System.Drawing.Point(506, 20);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 13);
             this.label7.TabIndex = 27;
