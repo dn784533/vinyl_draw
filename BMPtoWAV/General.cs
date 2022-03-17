@@ -297,11 +297,7 @@ namespace VinylDraw
         /// <param name="idsInnerRadiusCm"></param>
         /// <param name="idsLPcm"></param>
         /// <param name="iTTrpm"></param>
-        /// <param name="iStepsPerRev"></param>
-        /// <param name="ih0"></param>
-        /// <param name="ih360"></param>
-        /// <param name="iLum"></param>
-        /// <param name="iInvert"></param>
+        /// <param name="iSamplesPerPixel"></param>
         public WAVAdmin(double idsOuterRadiusCm, double idsInnerRadiusCm,
 			double idsLPcm, double iTTrpm, 
 			int iSamplesPerPixel
@@ -387,7 +383,10 @@ namespace VinylDraw
 			HeaderBytes[5] = (byte)((fileSize >> 8) & 0xFF);
 			HeaderBytes[6] = (byte)((fileSize >> 16) & 0xFF);
 			HeaderBytes[7] = (byte)((fileSize >> 24) & 0xFF);
-			FireEventProcessingEnded("The WAV data has been generated successfully.");
+            int durationMin = samplesTotal / (60 * Constants.SampleRate);
+            int durationSec = samplesTotal % (60 * Constants.SampleRate) / Constants.SampleRate;
+            FireEventProcessingEnded("The WAV data has been generated successfully. File duration is",
+                $"{durationMin.ToString("0")}'{durationSec.ToString("00")}\"");
         }
 
         /// <summary>
@@ -443,9 +442,9 @@ namespace VinylDraw
         /// Update main panel when processing has finished.
         /// </summary>
         /// <param name="iMessage"></param>
-		public void FireEventProcessingEnded(string iMessage)
+		public void FireEventProcessingEnded(string iMessage, string iDuration)
 		{
-			ProcessingEnded?.Invoke(this, new ProcessingEndedEventArgs(iMessage));
+			ProcessingEnded?.Invoke(this, new ProcessingEndedEventArgs(iMessage, iDuration));
 		}
 	}
 	public class ProgressEventArgs : EventArgs
@@ -459,9 +458,11 @@ namespace VinylDraw
 	public class ProcessingEndedEventArgs : EventArgs
     {
 		public string Message { get; set; }
-		public ProcessingEndedEventArgs(string iMessage)
+        public string Duration { get; set; }
+		public ProcessingEndedEventArgs(string iMessage, string iDuration)
         {
 			Message = iMessage;
+            Duration = iDuration;
         }
     }
 }

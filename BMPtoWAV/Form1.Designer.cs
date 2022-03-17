@@ -49,6 +49,7 @@
             this.prgCreate = new System.Windows.Forms.ProgressBar();
             this.lblProcessingEnded = new System.Windows.Forms.Label();
             this.grpDiscData = new System.Windows.Forms.GroupBox();
+            this.pnlPreview = new System.Windows.Forms.Panel();
             this.lblPixelInfo = new System.Windows.Forms.Label();
             this.lblSampleInfo = new System.Windows.Forms.Label();
             this.lblSamplesPerPixel = new System.Windows.Forms.Label();
@@ -86,6 +87,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.lblDuration = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trkStartRadiusCm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trkEndRadiusCm)).BeginInit();
@@ -171,7 +173,7 @@
             this.trkStartRadiusCm.Size = new System.Drawing.Size(192, 45);
             this.trkStartRadiusCm.TabIndex = 1;
             this.trkStartRadiusCm.Value = 10;
-            this.trkStartRadiusCm.Scroll += new System.EventHandler(this.CollectValues);
+            this.trkStartRadiusCm.Scroll += new System.EventHandler(this.trkStartRadiusCm_Scroll);
             // 
             // trkEndRadiusCm
             // 
@@ -182,7 +184,7 @@
             this.trkEndRadiusCm.SmallChange = 2;
             this.trkEndRadiusCm.TabIndex = 2;
             this.trkEndRadiusCm.Value = 18;
-            this.trkEndRadiusCm.Scroll += new System.EventHandler(this.CollectValues);
+            this.trkEndRadiusCm.Scroll += new System.EventHandler(this.trkEndRadiusCm_Scroll);
             // 
             // lblStartRadiusCm
             // 
@@ -223,7 +225,7 @@
             // lbxSpeedRPM
             // 
             this.lbxSpeedRPM.FormattingEnabled = true;
-            this.lbxSpeedRPM.Location = new System.Drawing.Point(509, 36);
+            this.lbxSpeedRPM.Location = new System.Drawing.Point(437, 36);
             this.lbxSpeedRPM.Name = "lbxSpeedRPM";
             this.lbxSpeedRPM.Size = new System.Drawing.Size(132, 121);
             this.lbxSpeedRPM.TabIndex = 20;
@@ -246,9 +248,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 144);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(57, 13);
+            this.label6.Size = new System.Drawing.Size(68, 13);
             this.label6.TabIndex = 22;
-            this.label6.Text = "Lines / cm";
+            this.label6.Text = "Groove pitch";
             // 
             // lblLPcm
             // 
@@ -271,12 +273,13 @@
             this.lblProcessingEnded.AutoSize = true;
             this.lblProcessingEnded.Location = new System.Drawing.Point(155, 504);
             this.lblProcessingEnded.Name = "lblProcessingEnded";
-            this.lblProcessingEnded.Size = new System.Drawing.Size(14, 13);
+            this.lblProcessingEnded.Size = new System.Drawing.Size(309, 13);
             this.lblProcessingEnded.TabIndex = 31;
-            this.lblProcessingEnded.Text = "X";
+            this.lblProcessingEnded.Text = "The WAV data has been generated successfully. File duration is";
             // 
             // grpDiscData
             // 
+            this.grpDiscData.Controls.Add(this.pnlPreview);
             this.grpDiscData.Controls.Add(this.lblPixelInfo);
             this.grpDiscData.Controls.Add(this.lblSampleInfo);
             this.grpDiscData.Controls.Add(this.lblSamplesPerPixel);
@@ -295,10 +298,18 @@
             this.grpDiscData.Controls.Add(this.lblLPcm);
             this.grpDiscData.Location = new System.Drawing.Point(12, 27);
             this.grpDiscData.Name = "grpDiscData";
-            this.grpDiscData.Size = new System.Drawing.Size(683, 248);
+            this.grpDiscData.Size = new System.Drawing.Size(854, 248);
             this.grpDiscData.TabIndex = 4;
             this.grpDiscData.TabStop = false;
             this.grpDiscData.Text = "Disc Cutting Parameters";
+            // 
+            // pnlPreview
+            // 
+            this.pnlPreview.Location = new System.Drawing.Point(618, 23);
+            this.pnlPreview.Name = "pnlPreview";
+            this.pnlPreview.Size = new System.Drawing.Size(216, 216);
+            this.pnlPreview.TabIndex = 70;
+            this.pnlPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlPreview_Paint);
             // 
             // lblPixelInfo
             // 
@@ -312,7 +323,7 @@
             // lblSampleInfo
             // 
             this.lblSampleInfo.AutoSize = true;
-            this.lblSampleInfo.Location = new System.Drawing.Point(506, 160);
+            this.lblSampleInfo.Location = new System.Drawing.Point(434, 160);
             this.lblSampleInfo.Name = "lblSampleInfo";
             this.lblSampleInfo.Size = new System.Drawing.Size(35, 13);
             this.lblSampleInfo.TabIndex = 49;
@@ -330,7 +341,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(506, 20);
+            this.label7.Location = new System.Drawing.Point(434, 20);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 13);
             this.label7.TabIndex = 27;
@@ -389,9 +400,9 @@
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Location = new System.Drawing.Point(12, 281);
+            this.groupBox1.Location = new System.Drawing.Point(12, 343);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(683, 212);
+            this.groupBox1.Size = new System.Drawing.Size(854, 150);
             this.groupBox1.TabIndex = 66;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "BMP File Details";
@@ -400,7 +411,7 @@
             // 
             this.lblBytesPerRow.AutoSize = true;
             this.lblBytesPerRow.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBytesPerRow.Location = new System.Drawing.Point(394, 193);
+            this.lblBytesPerRow.Location = new System.Drawing.Point(763, 97);
             this.lblBytesPerRow.Name = "lblBytesPerRow";
             this.lblBytesPerRow.Size = new System.Drawing.Size(11, 13);
             this.lblBytesPerRow.TabIndex = 94;
@@ -409,7 +420,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(278, 193);
+            this.label23.Location = new System.Drawing.Point(647, 97);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(76, 13);
             this.label23.TabIndex = 93;
@@ -419,7 +430,7 @@
             // 
             this.lblRowsReversed.AutoSize = true;
             this.lblRowsReversed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRowsReversed.Location = new System.Drawing.Point(111, 193);
+            this.lblRowsReversed.Location = new System.Drawing.Point(316, 121);
             this.lblRowsReversed.Name = "lblRowsReversed";
             this.lblRowsReversed.Size = new System.Drawing.Size(11, 13);
             this.lblRowsReversed.TabIndex = 92;
@@ -429,7 +440,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(6, 193);
+            this.label22.Location = new System.Drawing.Point(211, 121);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(83, 13);
             this.label22.TabIndex = 91;
@@ -448,7 +459,7 @@
             // 
             this.lblColoursInPalette.AutoSize = true;
             this.lblColoursInPalette.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblColoursInPalette.Location = new System.Drawing.Point(394, 169);
+            this.lblColoursInPalette.Location = new System.Drawing.Point(763, 73);
             this.lblColoursInPalette.Name = "lblColoursInPalette";
             this.lblColoursInPalette.Size = new System.Drawing.Size(11, 13);
             this.lblColoursInPalette.TabIndex = 89;
@@ -458,7 +469,7 @@
             // 
             this.lblVertRes.AutoSize = true;
             this.lblVertRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVertRes.Location = new System.Drawing.Point(394, 145);
+            this.lblVertRes.Location = new System.Drawing.Point(763, 49);
             this.lblVertRes.Name = "lblVertRes";
             this.lblVertRes.Size = new System.Drawing.Size(11, 13);
             this.lblVertRes.TabIndex = 88;
@@ -468,7 +479,7 @@
             // 
             this.lblHorizRes.AutoSize = true;
             this.lblHorizRes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHorizRes.Location = new System.Drawing.Point(394, 121);
+            this.lblHorizRes.Location = new System.Drawing.Point(562, 121);
             this.lblHorizRes.Name = "lblHorizRes";
             this.lblHorizRes.Size = new System.Drawing.Size(11, 13);
             this.lblHorizRes.TabIndex = 87;
@@ -478,7 +489,7 @@
             // 
             this.lblImageSize.AutoSize = true;
             this.lblImageSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImageSize.Location = new System.Drawing.Point(395, 97);
+            this.lblImageSize.Location = new System.Drawing.Point(563, 97);
             this.lblImageSize.Name = "lblImageSize";
             this.lblImageSize.Size = new System.Drawing.Size(11, 13);
             this.lblImageSize.TabIndex = 86;
@@ -488,7 +499,7 @@
             // 
             this.lblCompression.AutoSize = true;
             this.lblCompression.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompression.Location = new System.Drawing.Point(395, 73);
+            this.lblCompression.Location = new System.Drawing.Point(563, 73);
             this.lblCompression.Name = "lblCompression";
             this.lblCompression.Size = new System.Drawing.Size(11, 13);
             this.lblCompression.TabIndex = 85;
@@ -498,7 +509,7 @@
             // 
             this.lblBitsPerPx.AutoSize = true;
             this.lblBitsPerPx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBitsPerPx.Location = new System.Drawing.Point(395, 49);
+            this.lblBitsPerPx.Location = new System.Drawing.Point(563, 49);
             this.lblBitsPerPx.Name = "lblBitsPerPx";
             this.lblBitsPerPx.Size = new System.Drawing.Size(11, 13);
             this.lblBitsPerPx.TabIndex = 84;
@@ -508,7 +519,7 @@
             // 
             this.lblColourPlanes.AutoSize = true;
             this.lblColourPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblColourPlanes.Location = new System.Drawing.Point(111, 169);
+            this.lblColourPlanes.Location = new System.Drawing.Point(316, 97);
             this.lblColourPlanes.Name = "lblColourPlanes";
             this.lblColourPlanes.Size = new System.Drawing.Size(11, 13);
             this.lblColourPlanes.TabIndex = 83;
@@ -518,7 +529,7 @@
             // 
             this.lblHeightPx.AutoSize = true;
             this.lblHeightPx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHeightPx.Location = new System.Drawing.Point(111, 145);
+            this.lblHeightPx.Location = new System.Drawing.Point(316, 73);
             this.lblHeightPx.Name = "lblHeightPx";
             this.lblHeightPx.Size = new System.Drawing.Size(11, 13);
             this.lblHeightPx.TabIndex = 82;
@@ -528,7 +539,7 @@
             // 
             this.lblWidthPx.AutoSize = true;
             this.lblWidthPx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWidthPx.Location = new System.Drawing.Point(111, 121);
+            this.lblWidthPx.Location = new System.Drawing.Point(316, 49);
             this.lblWidthPx.Name = "lblWidthPx";
             this.lblWidthPx.Size = new System.Drawing.Size(11, 13);
             this.lblWidthPx.TabIndex = 81;
@@ -576,7 +587,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(278, 169);
+            this.label20.Location = new System.Drawing.Point(647, 73);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(89, 13);
             this.label20.TabIndex = 76;
@@ -585,7 +596,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(278, 145);
+            this.label19.Location = new System.Drawing.Point(647, 49);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(95, 13);
             this.label19.TabIndex = 75;
@@ -594,7 +605,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(278, 121);
+            this.label18.Location = new System.Drawing.Point(446, 121);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(107, 13);
             this.label18.TabIndex = 74;
@@ -603,7 +614,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(278, 97);
+            this.label17.Location = new System.Drawing.Point(446, 97);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 13);
             this.label17.TabIndex = 73;
@@ -612,7 +623,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(278, 73);
+            this.label16.Location = new System.Drawing.Point(446, 73);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(94, 13);
             this.label16.TabIndex = 72;
@@ -621,7 +632,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(278, 49);
+            this.label15.Location = new System.Drawing.Point(446, 49);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(67, 13);
             this.label15.TabIndex = 71;
@@ -630,7 +641,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 169);
+            this.label14.Location = new System.Drawing.Point(211, 97);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(72, 13);
             this.label14.TabIndex = 70;
@@ -639,7 +650,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(5, 145);
+            this.label13.Location = new System.Drawing.Point(210, 73);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(58, 13);
             this.label13.TabIndex = 69;
@@ -648,7 +659,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 121);
+            this.label12.Location = new System.Drawing.Point(211, 49);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(55, 13);
             this.label12.TabIndex = 68;
@@ -681,11 +692,22 @@
             this.label9.TabIndex = 65;
             this.label9.Text = "File Length";
             // 
+            // lblDuration
+            // 
+            this.lblDuration.AutoSize = true;
+            this.lblDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDuration.Location = new System.Drawing.Point(465, 502);
+            this.lblDuration.Name = "lblDuration";
+            this.lblDuration.Size = new System.Drawing.Size(16, 15);
+            this.lblDuration.TabIndex = 67;
+            this.lblDuration.Text = "X";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(878, 537);
+            this.Controls.Add(this.lblDuration);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpDiscData);
             this.Controls.Add(this.lblProcessingEnded);
@@ -771,6 +793,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel pnlPreview;
+        private System.Windows.Forms.Label lblDuration;
     }
 }
 

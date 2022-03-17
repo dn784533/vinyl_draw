@@ -26,8 +26,8 @@ namespace VinylDraw
             "bit-rates (1, 4, 8) may work, but are not guaranteed to.";
         public const string help2 = "Disc Cutting parameters:\r\n\r\nStart Radius - on the blank disc, the radius " +
             "at which the inscription will start.\r\n\r\nEnd Radius - on the blank disc, the radius at which the inscription will end. This should be the end of " +
-            "the recorded programme material, not the locked groove.\r\n\r\nLines / cm - the number of windings of the groove that will occupy each " +
-            "linear centimetre of radius.\r\n\r\nTurntable RPM - the speed of the recording lathe platter.\r\n\r\n" +
+            "the recorded programme material, not the locked groove.\r\n\r\nGroove pitch - the number of windings of the groove that will occupy each " +
+            "linear unit of radius.\r\n\r\nTurntable RPM - the speed of the recording lathe platter.\r\n\r\n" +
             "Samples / pixel - the number of WAV file samples that will be used to represent each pixel of the image. " +
             "This number is divided in to the sample rate (usually 44100) to determine the frequency of the output waveform.";
         public const string help3 = "BMP File Details\r\n\r\n" +
@@ -39,7 +39,7 @@ namespace VinylDraw
             "Bear in mind that although this allows (in theory) images of 16.7 million colours to " +
             "be used as input material, such images may not translate well when reduced to just one colour (i.e. black)!";
         public string help5 = "This version built " + BMPtoWAV.Properties.Resources.BuildDate + "Copyright © David Nelson, 2022." +
-            " Acknowledgement: Markrob at Lathe Trolls for the NTSC greyscale calculation.";
+            " Acknowledgement: Markrob at Lathe Trolls for the NTSC greyscale calculation and the preview idea.";
 
         public Help()
         {

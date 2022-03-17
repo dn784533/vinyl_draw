@@ -13,6 +13,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace VinylDraw
@@ -30,6 +32,9 @@ namespace VinylDraw
         public int StepsPerRev;
         public double TTSpeedRPM;
         public List<SpeedRPM> Speeds;
+        public int squareSize;
+        public Bitmap bmpOrig, bmpCrop;
+        public Image imCrop;
 
 
         /// <summary>
@@ -38,9 +43,15 @@ namespace VinylDraw
         public Form1()
         {
             InitializeComponent();
+            // The next statement uses reflection to prevents flicker when redrawing the image with circles.
+            // Thanks to https://stackoverflow.com/questions/8046560
+            typeof(Panel).InvokeMember("DoubleBuffered",
+                BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+                null, pnlPreview, new object[] { true });
             cmdCreateWAVData.Enabled = false;
             saveToolStripMenuItem.Enabled = false;
             lblProcessingEnded.Visible = false;
+            lblDuration.Visible = false;
             prgCreate.Visible = false;
             Speeds = new List<SpeedRPM> {
                 new SpeedRPM("8⅓", 50.0d / 6),
@@ -106,6 +117,7 @@ namespace VinylDraw
                     BMPAdmin.OpenBMPFile(ofd.FileName);
                     cmdCreateWAVData.Enabled = true;
                     lblProcessingEnded.Visible = false;
+                    lblDuration.Visible = false;
                     // Show all the details of the BMP file.
                     lblFileName.Text = ofd.FileName;
                     lblFileLength.Text = BMPAdmin.BMPHdr.FileLength.ToString();
@@ -122,6 +134,14 @@ namespace VinylDraw
                     lblVertRes.Text = BMPAdmin.BMPHdr.VertRes.ToString();
                     lblColoursInPalette.Text = BMPAdmin.BMPHdr.ColoursInPalette.ToString();
                     lblBytesPerRow.Text = BMPAdmin.BMPHdr.BytesPerRow.ToString();
+                    squareSize = Math.Min(BMPAdmin.BMPHdr.WidthPx, BMPAdmin.BMPHdr.HeightPx);
+                    int startX = (BMPAdmin.BMPHdr.WidthPx - squareSize) / 2;
+                    int startY = (BMPAdmin.BMPHdr.HeightPx - squareSize) / 2;
+                    bmpOrig = new Bitmap(Image.FromFile(ofd.FileName));
+                    imCrop = new Bitmap(bmpOrig.Clone(
+                        new Rectangle(startX, startY, squareSize, squareSize), bmpOrig.PixelFormat));
+                    CollectValues();
+                    pnlPreview.Invalidate();
                 }
                 catch (Exception ex)
                 {
@@ -140,6 +160,8 @@ namespace VinylDraw
         private void button1_Click(object sender, EventArgs e)
         {
             lblProcessingEnded.Visible = false;
+            lblDuration.Visible = false;
+            cmdCreateWAVData.Enabled = false;
             prgCreate.Value = 0;
             prgCreate.Visible = true;
             CollectValues();
@@ -154,10 +176,14 @@ namespace VinylDraw
                 prgCreate.Visible = false;
                 lblProcessingEnded.Text = ex.Message;
                 lblProcessingEnded.Visible = true;
+                lblDuration.Text = ex.Duration;
+                lblDuration.Visible = true;
             };
             wav.PrepareWAV();
             lblProcessingEnded.Visible = true;
+            lblDuration.Visible = true;
             saveToolStripMenuItem.Enabled = true;
+            cmdCreateWAVData.Enabled = true;
         }
 
         /// <summary>
@@ -243,6 +269,38 @@ namespace VinylDraw
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// (Re)draw the preview panel with the selected bitmap and the
+        /// two boundary circles. The outer boundary will always extend
+        /// to the shorter of the rectangular dimensions of the bitmap.
+        /// The bitmap may be square or oblong; if oblong, the bitmap will
+        /// be cropped so that only the central square section is presented.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pnlPreview_Paint(object sender, PaintEventArgs e)
+        {
+            int innerCircleStart = (int)(0.5 * (StartRadiusCm - EndRadiusCm) * pnlPreview.Width / StartRadiusCm);
+            int innerCircleSize = (int)(1.0 * EndRadiusCm * pnlPreview.Width / StartRadiusCm);
+            if (imCrop != null) e.Graphics.DrawImage(imCrop, 0, 0, pnlPreview.Width, pnlPreview.Height);
+            e.Graphics.DrawEllipse(new Pen(Color.Green, 2),
+                new RectangleF(0, 0, pnlPreview.Width - 1, pnlPreview.Height - 1));
+            e.Graphics.DrawEllipse(new Pen(Color.Red, 2),
+                new RectangleF(innerCircleStart, innerCircleStart, innerCircleSize, innerCircleSize));
+        }
+
+        private void trkStartRadiusCm_Scroll(object sender, EventArgs e)
+        {
+            CollectValues();
+            pnlPreview.Invalidate();
+        }
+
+        private void trkEndRadiusCm_Scroll(object sender, EventArgs e)
+        {
+            CollectValues();
+            pnlPreview.Invalidate();
         }
     }
     public class SpeedRPM
