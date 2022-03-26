@@ -311,7 +311,7 @@ namespace VinylDraw
 			numLines = (dsOuterRadiusCm - dsInnerRadiusCm) * dsLPcm;
             samplesPerRev = (int)(Constants.SampleRate * 60 / TTrpm);
             angStep = 2.0 * Math.PI * samplesPerPixel / samplesPerRev;
-            maxAngle = 2.0 * Math.PI * (numLines + 1);
+            maxAngle = 2.0 * Math.PI * numLines;
 			sampleData = new List<byte>();
 	
 		}
